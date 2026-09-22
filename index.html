@@ -2,24 +2,50 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Central Integrada</title>
 
-    <link rel="icon" type="image/png" href="favicon.png">
 
-    <!-- Bootstrap -->
+    <!-- =====================================
+         FAVICON
+    ====================================== -->
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="./favicon.png"
+    >
+
+    <link
+        rel="shortcut icon"
+        type="image/png"
+        href="./favicon.png"
+    >
+
+
+    <!-- =====================================
+         BOOTSTRAP
+    ====================================== -->
+
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet"
     >
 
-    <!-- Bootstrap Icons -->
+
+    <!-- =====================================
+         BOOTSTRAP ICONS
+    ====================================== -->
+
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     >
+
 
     <style>
 
@@ -27,404 +53,734 @@
             box-sizing: border-box;
         }
 
+
         body {
+
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             background: #f1f4f8;
+
             overflow: hidden;
         }
 
-        /* =========================
+
+        /* =====================================
            LAYOUT PRINCIPAL
-        ========================= */
+        ====================================== */
 
         .app-container {
+
             display: flex;
+
             width: 100vw;
+
             height: 100vh;
         }
 
-        /* =========================
+
+        /* =====================================
            MENU LATERAL
-        ========================= */
+        ====================================== */
 
         .sidebar {
+
             width: 280px;
+
             height: 100vh;
+
             background: #1b4079;
+
             color: white;
+
             display: flex;
+
             flex-direction: column;
+
             flex-shrink: 0;
-            box-shadow: 3px 0 10px rgba(0, 0, 0, 0.12);
+
+            box-shadow:
+                3px 0 10px rgba(0, 0, 0, 0.12);
+
             z-index: 10;
         }
 
+
+        /* =====================================
+           CABEÇALHO DO MENU
+        ====================================== */
+
         .sidebar-header {
+
             padding: 24px 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+
+            border-bottom:
+                1px solid rgba(255, 255, 255, 0.15);
         }
 
+
         .brand {
+
             display: flex;
+
             align-items: center;
+
             gap: 12px;
         }
 
+
         .brand-icon {
+
             width: 45px;
+
             height: 45px;
-            background: rgba(255, 255, 255, 0.15);
+
+            background:
+                rgba(255, 255, 255, 0.15);
+
             border-radius: 10px;
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
+
             font-size: 22px;
         }
 
+
         .brand-title {
+
             font-size: 19px;
+
             font-weight: 700;
+
             margin: 0;
         }
 
+
         .brand-subtitle {
+
             font-size: 11px;
+
             opacity: 0.75;
+
             margin-top: 2px;
         }
 
-        /* =========================
-           MENU
-        ========================= */
+
+        /* =====================================
+           TÍTULO DO MENU
+        ====================================== */
 
         .menu-title {
-            padding: 22px 20px 10px;
+
+            padding:
+                22px 20px 10px;
+
             font-size: 11px;
+
             font-weight: 700;
+
             text-transform: uppercase;
+
             letter-spacing: 1px;
+
             opacity: 0.6;
         }
 
+
+        /* =====================================
+           MENU
+        ====================================== */
+
         .menu {
+
             padding: 0 12px;
+
             overflow-y: auto;
         }
 
+
         .menu-item {
+
             width: 100%;
+
             border: none;
+
             background: transparent;
-            color: rgba(255, 255, 255, 0.82);
+
+            color:
+                rgba(255, 255, 255, 0.82);
+
             padding: 13px 14px;
+
             margin-bottom: 5px;
+
             border-radius: 8px;
+
             display: flex;
+
             align-items: center;
+
             gap: 12px;
+
             text-align: left;
+
             cursor: pointer;
-            transition: all 0.2s ease;
+
+            transition:
+                all 0.2s ease;
+
             font-size: 14px;
         }
 
+
         .menu-item i {
+
             font-size: 18px;
+
             width: 22px;
+
             text-align: center;
-        }
 
-        .menu-item:hover {
-            background: rgba(255, 255, 255, 0.10);
-            color: white;
-        }
-
-        .menu-item.active {
-            background: white;
-            color: #1b4079;
-            font-weight: 600;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
-        }
-
-        /* =========================
-           RODAPÉ MENU
-        ========================= */
-
-        .sidebar-footer {
-            margin-top: auto;
-            padding: 16px 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            font-size: 11px;
-            opacity: 0.65;
-            text-align: center;
-        }
-
-        /* =========================
-           ÁREA PRINCIPAL
-        ========================= */
-
-        .main-content {
-            flex: 1;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-        }
-
-        /* =========================
-           TOPBAR
-        ========================= */
-
-        .topbar {
-            height: 68px;
-            background: white;
-            border-bottom: 1px solid #dee2e6;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 22px;
             flex-shrink: 0;
         }
 
-        .current-system {
+
+        .menu-item:hover {
+
+            background:
+                rgba(255, 255, 255, 0.10);
+
+            color: white;
+        }
+
+
+        .menu-item.active {
+
+            background: white;
+
+            color: #1b4079;
+
+            font-weight: 600;
+
+            box-shadow:
+                0 3px 8px rgba(0, 0, 0, 0.12);
+        }
+
+
+        /* =====================================
+           RODAPÉ DO MENU
+        ====================================== */
+
+        .sidebar-footer {
+
+            margin-top: auto;
+
+            padding: 16px 20px;
+
+            border-top:
+                1px solid rgba(255, 255, 255, 0.15);
+
+            font-size: 11px;
+
+            opacity: 0.65;
+
+            text-align: center;
+        }
+
+
+        /* =====================================
+           ÁREA PRINCIPAL
+        ====================================== */
+
+        .main-content {
+
+            flex: 1;
+
+            height: 100vh;
+
             display: flex;
+
+            flex-direction: column;
+
+            min-width: 0;
+        }
+
+
+        /* =====================================
+           TOPBAR
+        ====================================== */
+
+        .topbar {
+
+            height: 68px;
+
+            background: white;
+
+            border-bottom:
+                1px solid #dee2e6;
+
+            display: flex;
+
             align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 22px;
+
+            flex-shrink: 0;
+        }
+
+
+        .current-system {
+
+            display: flex;
+
+            align-items: center;
+
             gap: 10px;
         }
 
+
         .current-icon {
+
             color: #1b4079;
+
             font-size: 20px;
         }
 
+
         .current-name {
+
             font-size: 16px;
+
             font-weight: 600;
+
             color: #263238;
         }
 
+
         .topbar-actions {
+
             display: flex;
+
             gap: 8px;
         }
 
+
         .topbar-btn {
-            border: 1px solid #d9dee5;
+
+            border:
+                1px solid #d9dee5;
+
             background: white;
+
             color: #495057;
+
             border-radius: 7px;
+
             padding: 7px 11px;
+
             cursor: pointer;
+
             transition: 0.2s;
         }
 
+
         .topbar-btn:hover {
+
             background: #f1f4f8;
+
             color: #1b4079;
         }
 
-        /* =========================
-           ÁREA DO IFRAME
-        ========================= */
+
+        /* =====================================
+           ÁREA DE CONTEÚDO
+        ====================================== */
 
         .content-area {
+
             flex: 1;
+
             padding: 12px;
+
             min-height: 0;
         }
 
+
         .iframe-container {
+
             width: 100%;
+
             height: 100%;
+
             background: white;
+
             border-radius: 8px;
+
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+
+            box-shadow:
+                0 2px 8px rgba(0, 0, 0, 0.07);
+
             position: relative;
         }
 
+
         #systemFrame {
+
             width: 100%;
+
             height: 100%;
+
             border: none;
+
             display: block;
         }
 
-        /* =========================
+
+        /* =====================================
            TELA INICIAL
-        ========================= */
+        ====================================== */
 
         .welcome-screen {
+
             position: absolute;
+
             inset: 0;
+
             background: white;
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
+
             text-align: center;
+
+            overflow: hidden;
+
             z-index: 2;
         }
 
+
+        /* =====================================
+           LOGO COMO MARCA D'ÁGUA
+        ====================================== */
+
+        .welcome-logo {
+
+            position: absolute;
+
+            left: 50%;
+
+            top: 50%;
+
+            transform:
+                translate(-50%, -50%);
+
+            width: min(65%, 520px);
+
+            max-height: 65%;
+
+            object-fit: contain;
+
+            opacity: 0.09;
+
+            pointer-events: none;
+
+            user-select: none;
+        }
+
+
+        /* =====================================
+           CONTEÚDO DA TELA INICIAL
+        ====================================== */
+
         .welcome-content {
+
+            position: relative;
+
+            z-index: 2;
+
             max-width: 600px;
+
             padding: 30px;
         }
 
+
         .welcome-icon {
-            width: 85px;
-            height: 85px;
-            margin: 0 auto 22px;
-            border-radius: 20px;
+
+            width: 75px;
+
+            height: 75px;
+
+            margin:
+                0 auto 20px;
+
+            border-radius: 18px;
+
             background: #1b4079;
+
             color: white;
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
-            font-size: 38px;
-            box-shadow: 0 8px 20px rgba(27, 64, 121, 0.25);
+
+            font-size: 32px;
+
+            box-shadow:
+                0 8px 20px
+                rgba(27, 64, 121, 0.20);
         }
 
+
         .welcome-content h1 {
+
             color: #1b4079;
+
             font-size: 28px;
+
             font-weight: 700;
+
             margin-bottom: 10px;
         }
 
+
         .welcome-content p {
+
             color: #6c757d;
+
             font-size: 15px;
+
             margin: 0;
         }
 
-        /* =========================
+
+        /* =====================================
            LOADING
-        ========================= */
+        ====================================== */
 
         .loading {
+
             position: absolute;
+
             inset: 0;
-            background: rgba(255, 255, 255, 0.90);
+
+            background:
+                rgba(255, 255, 255, 0.90);
+
             display: none;
+
             align-items: center;
+
             justify-content: center;
+
             z-index: 5;
         }
 
+
         .loading.active {
+
             display: flex;
         }
 
+
         .loading-content {
+
             text-align: center;
+
             color: #1b4079;
         }
 
-        .loading-content .spinner-border {
+
+        .loading-content
+        .spinner-border {
+
             width: 35px;
+
             height: 35px;
+
             margin-bottom: 12px;
         }
 
+
         .loading-content div {
+
             font-size: 13px;
         }
 
-        /* =========================
+
+        /* =====================================
+           BOTÃO MENU MOBILE
+        ====================================== */
+
+        .mobile-menu-btn {
+
+            display: none;
+
+            border: none;
+
+            background: transparent;
+
+            font-size: 22px;
+
+            color: #1b4079;
+
+            margin-right: 10px;
+        }
+
+
+        /* =====================================
            RESPONSIVIDADE
-        ========================= */
+        ====================================== */
 
         @media (max-width: 900px) {
 
             .sidebar {
+
                 width: 230px;
             }
 
+
             .brand-title {
+
                 font-size: 16px;
             }
 
+
             .menu-item {
+
                 font-size: 13px;
             }
+
         }
+
 
         @media (max-width: 700px) {
 
             body {
+
                 overflow: auto;
             }
 
+
             .app-container {
+
                 height: auto;
+
                 min-height: 100vh;
             }
 
+
             .sidebar {
+
                 position: fixed;
+
                 left: -280px;
+
                 top: 0;
-                transition: left 0.3s ease;
+
+                transition:
+                    left 0.3s ease;
+
                 z-index: 1000;
             }
 
+
             .sidebar.open {
+
                 left: 0;
             }
 
+
             .main-content {
+
                 width: 100%;
+
                 height: 100vh;
             }
 
+
             .mobile-menu-btn {
-                display: block !important;
+
+                display: block;
             }
 
+
             .current-name {
+
                 font-size: 14px;
             }
 
+
             .topbar {
+
                 padding: 0 12px;
             }
 
+
             .content-area {
+
                 padding: 7px;
             }
-        }
 
-        .mobile-menu-btn {
-            display: none;
-            border: none;
-            background: transparent;
-            font-size: 22px;
-            color: #1b4079;
-            margin-right: 10px;
+
+            .welcome-logo {
+
+                width: 75%;
+
+                opacity: 0.08;
+            }
+
         }
 
     </style>
 
 </head>
 
+
 <body>
 
+
 <div class="app-container">
+
 
     <!-- =====================================
          MENU LATERAL
     ====================================== -->
 
-    <aside class="sidebar" id="sidebar">
+    <aside
+        class="sidebar"
+        id="sidebar"
+    >
+
+
+        <!-- CABEÇALHO -->
 
         <div class="sidebar-header">
 
             <div class="brand">
 
+
                 <div class="brand-icon">
+
                     <i class="bi bi-grid-1x2-fill"></i>
+
                 </div>
+
 
                 <div>
 
@@ -443,12 +799,17 @@
         </div>
 
 
+        <!-- TÍTULO -->
+
         <div class="menu-title">
             Sistemas
         </div>
 
 
+        <!-- MENU -->
+
         <div class="menu">
+
 
             <!-- =====================================
                  AGENDA DE TREINAMENTOS
@@ -554,20 +915,24 @@
 
             </button>
 
+
         </div>
 
 
-        <!-- RODAPÉ -->
+        <!-- =====================================
+             RODAPÉ
+        ====================================== -->
 
         <div class="sidebar-footer">
 
             Central Integrada<br>
 
             <span>
-                Sistemas Internos - Bombas Vanbro Ltda
+                Sistemas internos
             </span>
 
         </div>
+
 
     </aside>
 
@@ -585,7 +950,11 @@
 
         <header class="topbar">
 
+
             <div class="current-system">
+
+
+                <!-- MENU MOBILE -->
 
                 <button
                     class="mobile-menu-btn"
@@ -596,10 +965,16 @@
 
                 </button>
 
+
+                <!-- ÍCONE -->
+
                 <i
                     id="currentIcon"
                     class="bi bi-grid-1x2-fill current-icon"
                 ></i>
+
+
+                <!-- NOME -->
 
                 <span
                     id="currentName"
@@ -608,12 +983,16 @@
                     Central Integrada
                 </span>
 
+
             </div>
 
 
+            <!-- BOTÕES -->
+
             <div class="topbar-actions">
 
-                <!-- Atualizar -->
+
+                <!-- ATUALIZAR -->
 
                 <button
                     class="topbar-btn"
@@ -626,7 +1005,7 @@
                 </button>
 
 
-                <!-- Abrir nova aba -->
+                <!-- NOVA ABA -->
 
                 <button
                     class="topbar-btn"
@@ -638,16 +1017,19 @@
 
                 </button>
 
+
             </div>
+
 
         </header>
 
 
         <!-- =====================================
-             ÁREA DE CONTEÚDO
+             ÁREA DO SISTEMA
         ====================================== -->
 
         <section class="content-area">
+
 
             <div class="iframe-container">
 
@@ -661,7 +1043,20 @@
                     class="welcome-screen"
                 >
 
+
+                    <!-- LOGO DA EMPRESA -->
+
+                    <img
+                        src="./logo.png"
+                        alt="Logo da empresa"
+                        class="welcome-logo"
+                    >
+
+
+                    <!-- CONTEÚDO -->
+
                     <div class="welcome-content">
+
 
                         <div class="welcome-icon">
 
@@ -680,7 +1075,9 @@
                             para começar.
                         </p>
 
+
                     </div>
+
 
                 </div>
 
@@ -694,18 +1091,23 @@
                     class="loading"
                 >
 
+
                     <div class="loading-content">
+
 
                         <div
                             class="spinner-border"
                             role="status"
                         ></div>
 
+
                         <div>
                             Carregando sistema...
                         </div>
 
+
                     </div>
+
 
                 </div>
 
@@ -720,36 +1122,50 @@
                     src="about:blank"
                 ></iframe>
 
+
             </div>
+
 
         </section>
 
+
     </main>
+
 
 </div>
 
 
+
 <script>
 
-    // =====================================
-    // SISTEMA ATUALMENTE ABERTO
-    // =====================================
+
+    /* =====================================
+       SISTEMA ATUAL
+    ====================================== */
 
     let currentUrl = "";
 
 
-    // =====================================
-    // ABRIR SISTEMA
-    // =====================================
+    /* =====================================
+       ABRIR SISTEMA
+    ====================================== */
 
     function openSystem(button) {
 
-        const url = button.dataset.url;
-        const name = button.dataset.name;
-        const icon = button.dataset.icon;
+
+        const url =
+            button.dataset.url;
+
+        const name =
+            button.dataset.name;
+
+        const icon =
+            button.dataset.icon;
 
 
-        // Verifica se existe URL
+        /* ---------------------------------
+           VERIFICA URL
+        --------------------------------- */
 
         if (!url) {
 
@@ -763,12 +1179,16 @@
         }
 
 
-        // Guarda URL atual
+        /* ---------------------------------
+           GUARDA URL
+        --------------------------------- */
 
         currentUrl = url;
 
 
-        // Remove seleção dos outros menus
+        /* ---------------------------------
+           REMOVE SELEÇÃO ANTERIOR
+        --------------------------------- */
 
         document
             .querySelectorAll(".menu-item")
@@ -779,22 +1199,29 @@
             });
 
 
-        // Ativa item selecionado
+        /* ---------------------------------
+           ATIVA SISTEMA
+        --------------------------------- */
 
         button.classList.add("active");
 
 
-        // Atualiza nome
+        /* ---------------------------------
+           ATUALIZA NOME
+        --------------------------------- */
 
         document
             .getElementById("currentName")
             .textContent = name;
 
 
-        // Atualiza ícone
+        /* ---------------------------------
+           ATUALIZA ÍCONE
+        --------------------------------- */
 
         const currentIcon =
             document.getElementById("currentIcon");
+
 
         currentIcon.className =
             "bi "
@@ -802,34 +1229,40 @@
             + " current-icon";
 
 
-        // Esconde tela inicial
+        /* ---------------------------------
+           ESCONDE TELA INICIAL
+        --------------------------------- */
 
         document
             .getElementById("welcomeScreen")
             .style.display = "none";
 
 
-        // Mostra carregamento
+        /* ---------------------------------
+           MOSTRA LOADING
+        --------------------------------- */
 
         document
             .getElementById("loading")
             .classList.add("active");
 
 
-        // Obtém iframe
+        /* ---------------------------------
+           CARREGA IFRAME
+        --------------------------------- */
 
         const frame =
             document.getElementById("systemFrame");
 
 
-        // Carrega sistema
-
         frame.src = url;
 
 
-        // Quando terminar de carregar
+        /* ---------------------------------
+           REMOVE LOADING
+        --------------------------------- */
 
-        frame.onload = function () {
+        frame.onload = function() {
 
             document
                 .getElementById("loading")
@@ -838,7 +1271,9 @@
         };
 
 
-        // Fecha menu em dispositivos móveis
+        /* ---------------------------------
+           FECHA MENU MOBILE
+        --------------------------------- */
 
         document
             .getElementById("sidebar")
@@ -847,14 +1282,18 @@
     }
 
 
-    // =====================================
-    // ATUALIZAR SISTEMA
-    // =====================================
+
+    /* =====================================
+       ATUALIZAR SISTEMA
+    ====================================== */
 
     function reloadSystem() {
 
+
         if (!currentUrl) {
+
             return;
+
         }
 
 
@@ -872,11 +1311,13 @@
     }
 
 
-    // =====================================
-    // ABRIR EM NOVA ABA
-    // =====================================
+
+    /* =====================================
+       ABRIR EM NOVA ABA
+    ====================================== */
 
     function openNewTab() {
+
 
         if (!currentUrl) {
 
@@ -885,6 +1326,7 @@
             );
 
             return;
+
         }
 
 
@@ -896,11 +1338,13 @@
     }
 
 
-    // =====================================
-    // MENU MOBILE
-    // =====================================
+
+    /* =====================================
+       MENU MOBILE
+    ====================================== */
 
     function toggleSidebar() {
+
 
         document
             .getElementById("sidebar")
@@ -909,26 +1353,34 @@
     }
 
 
-    // =====================================
-    // FECHAR MENU AO CLICAR FORA
-    // =====================================
+
+    /* =====================================
+       FECHAR MENU AO CLICAR FORA
+    ====================================== */
 
     document.addEventListener(
         "click",
         function(event) {
 
+
             const sidebar =
                 document.getElementById("sidebar");
+
 
             const menuButton =
                 document.querySelector(".mobile-menu-btn");
 
 
             if (
+
                 window.innerWidth <= 700 &&
+
                 sidebar.classList.contains("open") &&
+
                 !sidebar.contains(event.target) &&
+
                 !menuButton.contains(event.target)
+
             ) {
 
                 sidebar.classList.remove("open");
@@ -938,10 +1390,10 @@
         }
     );
 
+
 </script>
 
 
 </body>
 
 </html>
-```

@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -9,38 +10,17 @@
 
     <title>Central Integrada</title>
 
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="./favicon.png">
+    <link rel="shortcut icon" type="image/png" href="./favicon.png">
 
-    <!-- =====================================
-         FAVICON
-    ====================================== -->
-
-    <link
-        rel="icon"
-        type="image/png"
-        href="./favicon.png"
-    >
-
-    <link
-        rel="shortcut icon"
-        type="image/png"
-        href="./favicon.png"
-    >
-
-
-    <!-- =====================================
-         BOOTSTRAP
-    ====================================== -->
-
+    <!-- BOOTSTRAP -->
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet"
     >
 
-
-    <!-- =====================================
-         BOOTSTRAP ICONS
-    ====================================== -->
-
+    <!-- BOOTSTRAP ICONS -->
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
@@ -55,80 +35,75 @@
 
 
         body {
-
             margin: 0;
-
-            font-family:
-                Arial,
-                Helvetica,
-                sans-serif;
-
+            font-family: Arial, Helvetica, sans-serif;
             background: #f1f4f8;
-
             overflow: hidden;
         }
 
 
         /* =====================================
-           LAYOUT PRINCIPAL
+           CONTAINER PRINCIPAL
         ====================================== */
 
         .app-container {
-
             display: flex;
-
             width: 100vw;
-
             height: 100vh;
         }
 
 
         /* =====================================
-           MENU LATERAL
+           BARRA LATERAL
         ====================================== */
 
         .sidebar {
-
             width: 280px;
-
             height: 100vh;
-
             background: #1b4079;
-
             color: white;
 
             display: flex;
-
             flex-direction: column;
 
             flex-shrink: 0;
 
-            box-shadow:
-                3px 0 10px rgba(0, 0, 0, 0.12);
+            box-shadow: 3px 0 10px rgba(0, 0, 0, 0.12);
 
             z-index: 10;
+
+            transition: width 0.25s ease;
+        }
+
+
+        /* BARRA RECOLHIDA */
+
+        .sidebar.collapsed {
+            width: 76px;
         }
 
 
         /* =====================================
-           CABEÇALHO DO MENU
+           CABEÇALHO DA BARRA
         ====================================== */
 
         .sidebar-header {
-
             padding: 18px 20px;
 
-            border-bottom:
-                1px solid rgba(255, 255, 255, 0.15);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+
+            transition: padding 0.25s ease;
+        }
+
+
+        .sidebar.collapsed .sidebar-header {
+            padding: 18px 15px;
         }
 
 
         .brand {
-
             display: flex;
-
             align-items: center;
-
             gap: 12px;
         }
 
@@ -138,70 +113,100 @@
         ====================================== */
 
         .home-button {
-
             width: 45px;
-
             height: 45px;
 
             padding: 0;
 
             border: none;
 
-            background:
-                rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.15);
 
             color: white;
 
             border-radius: 10px;
 
             display: flex;
-
             align-items: center;
-
             justify-content: center;
 
             font-size: 22px;
 
             cursor: pointer;
 
-            transition:
-                all 0.2s ease;
+            transition: all 0.2s ease;
+
+            flex-shrink: 0;
         }
 
 
         .home-button:hover {
-
             background: white;
-
             color: #1b4079;
-
             transform: scale(1.04);
         }
 
 
         .home-button:active {
-
             transform: scale(0.98);
         }
 
 
+        /* =====================================
+           BOTÃO RECOLHER
+        ====================================== */
+
+        .collapse-button {
+            width: 30px;
+            height: 30px;
+
+            padding: 0;
+
+            border: none;
+
+            background: rgba(255, 255, 255, 0.10);
+
+            color: rgba(255, 255, 255, 0.85);
+
+            border-radius: 7px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+
+            transition: all 0.2s ease;
+
+            margin-left: auto;
+
+            flex-shrink: 0;
+        }
+
+
+        .collapse-button:hover {
+            background: white;
+            color: #1b4079;
+        }
+
+
+        /* =====================================
+           LOGO / TÍTULO
+        ====================================== */
+
         .brand-title {
-
             font-size: 19px;
-
             font-weight: 700;
-
             margin: 0;
+            white-space: nowrap;
         }
 
 
         .brand-subtitle {
-
             font-size: 11px;
-
             opacity: 0.75;
-
             margin-top: 2px;
+            white-space: nowrap;
         }
 
 
@@ -210,17 +215,37 @@
         ====================================== */
 
         .menu-title {
-
-            padding:
-                22px 20px 10px;
+            padding: 22px 20px 10px;
 
             font-size: 11px;
-
             font-weight: 700;
 
             text-transform: uppercase;
 
             letter-spacing: 1px;
+
+            opacity: 0.6;
+
+            white-space: nowrap;
+
+            transition: all 0.2s ease;
+        }
+
+
+        /* Esconde título quando recolhido */
+
+        .sidebar.collapsed .menu-title {
+            text-align: center;
+            padding-left: 0;
+            padding-right: 0;
+            font-size: 0;
+        }
+
+
+        .sidebar.collapsed .menu-title::after {
+            content: "•";
+
+            font-size: 16px;
 
             opacity: 0.6;
         }
@@ -231,23 +256,25 @@
         ====================================== */
 
         .menu {
-
             padding: 0 12px;
 
             overflow-y: auto;
+            overflow-x: hidden;
         }
 
 
-        .menu-item {
+        /* =====================================
+           ITEM DO MENU
+        ====================================== */
 
+        .menu-item {
             width: 100%;
 
             border: none;
 
             background: transparent;
 
-            color:
-                rgba(255, 255, 255, 0.82);
+            color: rgba(255, 255, 255, 0.82);
 
             padding: 13px 14px;
 
@@ -256,7 +283,6 @@
             border-radius: 8px;
 
             display: flex;
-
             align-items: center;
 
             gap: 12px;
@@ -265,15 +291,13 @@
 
             cursor: pointer;
 
-            transition:
-                all 0.2s ease;
+            transition: all 0.2s ease;
 
             font-size: 14px;
         }
 
 
         .menu-item i {
-
             font-size: 18px;
 
             width: 22px;
@@ -284,46 +308,137 @@
         }
 
 
+        .menu-item span {
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            transition: opacity 0.15s ease;
+        }
+
+
         .menu-item:hover {
-
-            background:
-                rgba(255, 255, 255, 0.10);
-
+            background: rgba(255, 255, 255, 0.10);
             color: white;
         }
 
 
         .menu-item.active {
-
             background: white;
 
             color: #1b4079;
 
             font-weight: 600;
 
-            box-shadow:
-                0 3px 8px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
         }
 
 
         /* =====================================
-           RODAPÉ DO MENU
+           MENU RECOLHIDO
+        ====================================== */
+
+        .sidebar.collapsed .menu {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+
+        .sidebar.collapsed .menu-item {
+            justify-content: center;
+
+            padding: 13px 0;
+
+            gap: 0;
+        }
+
+
+        .sidebar.collapsed .menu-item span {
+            display: none;
+        }
+
+
+        .sidebar.collapsed .menu-item i {
+            width: auto;
+        }
+
+
+        /* =====================================
+           MARCA / TÍTULO RECOLHIDO
+        ====================================== */
+
+        .sidebar.collapsed .brand {
+            justify-content: center;
+        }
+
+
+        .sidebar.collapsed .brand > div {
+            display: none;
+        }
+
+
+        .sidebar.collapsed .collapse-button {
+            position: absolute;
+
+            top: 8px;
+            right: -13px;
+
+            width: 26px;
+            height: 26px;
+
+            background: white;
+
+            color: #1b4079;
+
+            border: 1px solid #d9dee5;
+
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+
+            z-index: 20;
+        }
+
+
+        .sidebar.collapsed .collapse-button i {
+            transform: rotate(180deg);
+        }
+
+
+        /* =====================================
+           RODAPÉ
         ====================================== */
 
         .sidebar-footer {
-
             margin-top: auto;
 
             padding: 16px 20px;
 
-            border-top:
-                1px solid rgba(255, 255, 255, 0.15);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
 
             font-size: 11px;
 
             opacity: 0.65;
 
             text-align: center;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+        }
+
+
+        .sidebar.collapsed .sidebar-footer {
+            padding: 16px 5px;
+
+            font-size: 0;
+        }
+
+
+        .sidebar.collapsed .sidebar-footer::before {
+            content: "CI";
+
+            font-size: 11px;
+
+            font-weight: 600;
         }
 
 
@@ -332,13 +447,11 @@
         ====================================== */
 
         .main-content {
-
             flex: 1;
 
             height: 100vh;
 
             display: flex;
-
             flex-direction: column;
 
             min-width: 0;
@@ -350,13 +463,11 @@
         ====================================== */
 
         .topbar {
-
             height: 68px;
 
             background: white;
 
-            border-bottom:
-                1px solid #dee2e6;
+            border-bottom: 1px solid #dee2e6;
 
             display: flex;
 
@@ -371,7 +482,6 @@
 
 
         .current-system {
-
             display: flex;
 
             align-items: center;
@@ -383,7 +493,6 @@
 
 
         .current-icon {
-
             color: #1b4079;
 
             font-size: 20px;
@@ -392,12 +501,7 @@
         }
 
 
-        /* =====================================
-           TÍTULO DA TOPBAR
-        ====================================== */
-
         .current-info {
-
             display: flex;
 
             flex-direction: column;
@@ -409,7 +513,6 @@
 
 
         .current-name {
-
             font-size: 16px;
 
             font-weight: 600;
@@ -421,7 +524,6 @@
 
 
         .current-description {
-
             display: none;
 
             font-size: 11px;
@@ -440,18 +542,16 @@
         }
 
 
-        /* =====================================
-           DESCRIÇÃO DA PÁGINA INICIAL
-        ====================================== */
-
         .home-mode .current-description {
-
             display: block;
         }
 
 
-        .topbar-actions {
+        /* =====================================
+           BOTÕES TOPBAR
+        ====================================== */
 
+        .topbar-actions {
             display: flex;
 
             gap: 8px;
@@ -461,9 +561,7 @@
 
 
         .topbar-btn {
-
-            border:
-                1px solid #d9dee5;
+            border: 1px solid #d9dee5;
 
             background: white;
 
@@ -480,7 +578,6 @@
 
 
         .topbar-btn:hover {
-
             background: #f1f4f8;
 
             color: #1b4079;
@@ -488,11 +585,10 @@
 
 
         /* =====================================
-           ÁREA DE CONTEÚDO
+           ÁREA DO CONTEÚDO
         ====================================== */
 
         .content-area {
-
             flex: 1;
 
             padding: 12px;
@@ -502,9 +598,7 @@
 
 
         .iframe-container {
-
             width: 100%;
-
             height: 100%;
 
             background: white;
@@ -513,17 +607,14 @@
 
             overflow: hidden;
 
-            box-shadow:
-                0 2px 8px rgba(0, 0, 0, 0.07);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
 
             position: relative;
         }
 
 
         #systemFrame {
-
             width: 100%;
-
             height: 100%;
 
             border: none;
@@ -537,7 +628,6 @@
         ====================================== */
 
         .welcome-screen {
-
             position: absolute;
 
             inset: 0;
@@ -558,20 +648,13 @@
         }
 
 
-        /* =====================================
-           LOGO COMO MARCA D'ÁGUA
-        ====================================== */
-
         .welcome-logo {
-
             position: absolute;
 
             left: 50%;
-
             top: 50%;
 
-            transform:
-                translate(-50%, -50%);
+            transform: translate(-50%, -50%);
 
             width: min(65%, 520px);
 
@@ -587,16 +670,7 @@
         }
 
 
-        /* =====================================
-           CONTEÚDO DA TELA INICIAL
-
-           Mantido vazio propositalmente.
-           O logo funciona como elemento visual
-           principal da página inicial.
-        ====================================== */
-
         .welcome-content {
-
             position: relative;
 
             z-index: 2;
@@ -610,13 +684,11 @@
         ====================================== */
 
         .loading {
-
             position: absolute;
 
             inset: 0;
 
-            background:
-                rgba(255, 255, 255, 0.90);
+            background: rgba(255, 255, 255, 0.90);
 
             display: none;
 
@@ -629,24 +701,19 @@
 
 
         .loading.active {
-
             display: flex;
         }
 
 
         .loading-content {
-
             text-align: center;
 
             color: #1b4079;
         }
 
 
-        .loading-content
-        .spinner-border {
-
+        .loading-content .spinner-border {
             width: 35px;
-
             height: 35px;
 
             margin-bottom: 12px;
@@ -654,7 +721,6 @@
 
 
         .loading-content div {
-
             font-size: 13px;
         }
 
@@ -664,7 +730,6 @@
         ====================================== */
 
         .mobile-menu-btn {
-
             display: none;
 
             border: none;
@@ -686,35 +751,36 @@
         @media (max-width: 900px) {
 
             .sidebar {
-
                 width: 230px;
             }
 
+            .sidebar.collapsed {
+                width: 76px;
+            }
 
             .brand-title {
-
                 font-size: 16px;
             }
 
-
             .menu-item {
-
                 font-size: 13px;
             }
 
         }
 
 
+        /* =====================================
+           CELULAR
+        ====================================== */
+
         @media (max-width: 700px) {
 
             body {
-
                 overflow: auto;
             }
 
 
             .app-container {
-
                 height: auto;
 
                 min-height: 100vh;
@@ -726,24 +792,113 @@
                 position: fixed;
 
                 left: -280px;
-
                 top: 0;
 
-                transition:
-                    left 0.3s ease;
+                width: 280px;
+
+                transition: left 0.3s ease;
 
                 z-index: 1000;
             }
 
 
-            .sidebar.open {
+            .sidebar.collapsed {
+                width: 280px;
+            }
 
+
+            .sidebar.open {
                 left: 0;
             }
 
 
-            .main-content {
+            /* No celular não usamos a versão recolhida */
 
+            .sidebar.collapsed .brand > div {
+                display: block;
+            }
+
+
+            .sidebar.collapsed .brand {
+                justify-content: flex-start;
+            }
+
+
+            .sidebar.collapsed .menu-title {
+                text-align: left;
+
+                padding-left: 20px;
+
+                padding-right: 20px;
+
+                font-size: 11px;
+            }
+
+
+            .sidebar.collapsed .menu-title::after {
+                display: none;
+            }
+
+
+            .sidebar.collapsed .menu {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+
+            .sidebar.collapsed .menu-item {
+                justify-content: flex-start;
+
+                padding: 13px 14px;
+
+                gap: 12px;
+            }
+
+
+            .sidebar.collapsed .menu-item span {
+                display: inline;
+            }
+
+
+            .sidebar.collapsed .menu-item i {
+                width: 22px;
+            }
+
+
+            .sidebar.collapsed .sidebar-footer {
+                padding: 16px 20px;
+
+                font-size: 11px;
+            }
+
+
+            .sidebar.collapsed .sidebar-footer::before {
+                display: none;
+            }
+
+
+            .sidebar.collapsed .collapse-button {
+                position: static;
+
+                width: 30px;
+                height: 30px;
+
+                background: rgba(255, 255, 255, 0.10);
+
+                color: rgba(255, 255, 255, 0.85);
+
+                border: none;
+
+                box-shadow: none;
+            }
+
+
+            .sidebar.collapsed .collapse-button i {
+                transform: none;
+            }
+
+
+            .main-content {
                 width: 100%;
 
                 height: 100vh;
@@ -751,19 +906,16 @@
 
 
             .mobile-menu-btn {
-
                 display: block;
             }
 
 
             .current-name {
-
                 font-size: 14px;
             }
 
 
             .current-description {
-
                 font-size: 10px;
 
                 max-width: 230px;
@@ -771,19 +923,16 @@
 
 
             .topbar {
-
                 padding: 0 12px;
             }
 
 
             .content-area {
-
                 padding: 7px;
             }
 
 
             .welcome-logo {
-
                 width: 75%;
 
                 opacity: 0.08;
@@ -812,9 +961,7 @@
     >
 
 
-        <!-- =====================================
-             CABEÇALHO / HOME
-        ====================================== -->
+        <!-- CABEÇALHO -->
 
         <div class="sidebar-header">
 
@@ -829,11 +976,11 @@
                     aria-label="Página inicial"
                     onclick="goHome()"
                 >
-
                     <i class="bi bi-grid-1x2-fill"></i>
-
                 </button>
 
+
+                <!-- TÍTULO -->
 
                 <div>
 
@@ -847,14 +994,26 @@
 
                 </div>
 
+
+                <!-- BOTÃO RECOLHER -->
+
+                <button
+                    class="collapse-button"
+                    id="collapseButton"
+                    title="Recolher menu"
+                    aria-label="Recolher menu"
+                    onclick="toggleSidebarCollapse()"
+                >
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+
+
             </div>
 
         </div>
 
 
-        <!-- =====================================
-             TÍTULO
-        ====================================== -->
+        <!-- TÍTULO DO MENU -->
 
         <div class="menu-title">
             Sistemas
@@ -862,15 +1021,13 @@
 
 
         <!-- =====================================
-             MENU DE SISTEMAS
+             SISTEMAS
         ====================================== -->
 
         <div class="menu">
 
 
-            <!-- =====================================
-                 AGENDA DE TREINAMENTOS
-            ====================================== -->
+            <!-- AGENDA DE TREINAMENTOS -->
 
             <button
                 class="menu-item"
@@ -878,6 +1035,7 @@
                 data-url="https://jonatha-vanbro.github.io/Agenda-de-Treinamentos/"
                 data-icon="bi-mortarboard-fill"
                 onclick="openSystem(this)"
+                title="Agenda de Treinamentos"
             >
 
                 <i class="bi bi-mortarboard-fill"></i>
@@ -889,9 +1047,7 @@
             </button>
 
 
-            <!-- =====================================
-                 AGENDA DE TAREFAS - ENGENHARIA
-            ====================================== -->
+            <!-- AGENDA DE TAREFAS - ENGENHARIA -->
 
             <button
                 class="menu-item"
@@ -899,6 +1055,7 @@
                 data-url="https://jonatha-vanbro.github.io/Agenda-de-Tarefas-Engenharia-/"
                 data-icon="bi-kanban-fill"
                 onclick="openSystem(this)"
+                title="Agenda de Tarefas - Engenharia"
             >
 
                 <i class="bi bi-kanban-fill"></i>
@@ -910,9 +1067,7 @@
             </button>
 
 
-            <!-- =====================================
-                 DASHBOARD DE QUALIDADE
-            ====================================== -->
+            <!-- DASHBOARD DE QUALIDADE -->
 
             <button
                 class="menu-item"
@@ -920,6 +1075,7 @@
                 data-url="https://jonatha-vanbro.github.io/dashboard-qualidade/"
                 data-icon="bi-bar-chart-fill"
                 onclick="openSystem(this)"
+                title="Dashboard de Qualidade"
             >
 
                 <i class="bi bi-bar-chart-fill"></i>
@@ -931,9 +1087,7 @@
             </button>
 
 
-            <!-- =====================================
-                 CONTROLE DE MATERIAIS - BOBINAGEM
-            ====================================== -->
+            <!-- CONTROLE DE MATERIAIS - BOBINAGEM -->
 
             <button
                 class="menu-item"
@@ -941,6 +1095,7 @@
                 data-url="https://jonatha-vanbro.github.io/Controle-de-Materiais_Bobinagem/"
                 data-icon="bi-box-seam-fill"
                 onclick="openSystem(this)"
+                title="Controle de Materiais - Bobinagem"
             >
 
                 <i class="bi bi-box-seam-fill"></i>
@@ -952,9 +1107,7 @@
             </button>
 
 
-            <!-- =====================================
-                 PROCEDIMENTOS DE TRABALHO
-            ====================================== -->
+            <!-- PROCEDIMENTOS DE TRABALHO -->
 
             <button
                 class="menu-item"
@@ -962,6 +1115,7 @@
                 data-url="https://jonatha-vanbro.github.io/Procedimentos-de-Trabalho/"
                 data-icon="bi-file-earmark-text-fill"
                 onclick="openSystem(this)"
+                title="Procedimentos de Trabalho"
             >
 
                 <i class="bi bi-file-earmark-text-fill"></i>
@@ -976,16 +1130,14 @@
         </div>
 
 
-        <!-- =====================================
-             RODAPÉ
-        ====================================== -->
+        <!-- RODAPÉ -->
 
         <div class="sidebar-footer">
 
             Central Integrada<br>
 
             <span>
-                Sistemas Internos - Bombas Vanbro Ltda
+                Sistemas internos
             </span>
 
         </div>
@@ -1001,9 +1153,7 @@
     <main class="main-content">
 
 
-        <!-- =====================================
-             TOPBAR
-        ====================================== -->
+        <!-- TOPBAR -->
 
         <header class="topbar">
 
@@ -1020,9 +1170,7 @@
                     class="mobile-menu-btn"
                     onclick="toggleSidebar()"
                 >
-
                     <i class="bi bi-list"></i>
-
                 </button>
 
 
@@ -1037,7 +1185,6 @@
                 <!-- INFORMAÇÕES -->
 
                 <div class="current-info">
-
 
                     <span
                         id="currentName"
@@ -1054,16 +1201,13 @@
                         Selecione uma ferramenta no menu lateral para começar
                     </span>
 
-
                 </div>
 
 
             </div>
 
 
-            <!-- =====================================
-                 BOTÕES DA TOPBAR
-            ====================================== -->
+            <!-- BOTÕES DA TOPBAR -->
 
             <div class="topbar-actions">
 
@@ -1075,9 +1219,7 @@
                     title="Atualizar sistema"
                     onclick="reloadSystem()"
                 >
-
                     <i class="bi bi-arrow-clockwise"></i>
-
                 </button>
 
 
@@ -1088,9 +1230,7 @@
                     title="Abrir em nova aba"
                     onclick="openNewTab()"
                 >
-
                     <i class="bi bi-box-arrow-up-right"></i>
-
                 </button>
 
 
@@ -1101,7 +1241,7 @@
 
 
         <!-- =====================================
-             ÁREA DO SISTEMA
+             CONTEÚDO
         ====================================== -->
 
         <section class="content-area">
@@ -1110,18 +1250,14 @@
             <div class="iframe-container">
 
 
-                <!-- =====================================
-                     TELA INICIAL
-                ====================================== -->
+                <!-- TELA INICIAL -->
 
                 <div
                     id="welcomeScreen"
                     class="welcome-screen"
                 >
 
-
-                    <!-- LOGO DA EMPRESA
-                         COMO MARCA D'ÁGUA -->
+                    <!-- LOGO COMO MARCA D'ÁGUA -->
 
                     <img
                         src="./logo.png"
@@ -1130,51 +1266,35 @@
                     >
 
 
-                    <!--
-                        Não há texto aqui.
-                        A página inicial utiliza
-                        somente o logo como marca d'água.
-                    -->
-
                     <div class="welcome-content"></div>
-
 
                 </div>
 
 
-                <!-- =====================================
-                     LOADING
-                ====================================== -->
+                <!-- LOADING -->
 
                 <div
                     id="loading"
                     class="loading"
                 >
 
-
                     <div class="loading-content">
-
 
                         <div
                             class="spinner-border"
                             role="status"
                         ></div>
 
-
                         <div>
                             Carregando sistema...
                         </div>
 
-
                     </div>
-
 
                 </div>
 
 
-                <!-- =====================================
-                     IFRAME
-                ====================================== -->
+                <!-- IFRAME -->
 
                 <iframe
                     id="systemFrame"
@@ -1195,7 +1315,6 @@
 </div>
 
 
-
 <script>
 
 
@@ -1213,42 +1332,29 @@
     function openSystem(button) {
 
 
-        const url =
-            button.dataset.url;
+        const url = button.dataset.url;
 
-        const name =
-            button.dataset.name;
+        const name = button.dataset.name;
 
-        const icon =
-            button.dataset.icon;
+        const icon = button.dataset.icon;
 
-
-        /* ---------------------------------
-           VERIFICA URL
-        --------------------------------- */
 
         if (!url) {
 
             alert(
-                "O sistema \""
-                + name
-                + "\" ainda não possui um link configurado."
+                'O sistema "' +
+                name +
+                '" ainda não possui um link configurado.'
             );
 
             return;
         }
 
 
-        /* ---------------------------------
-           GUARDA URL
-        --------------------------------- */
-
         currentUrl = url;
 
 
-        /* ---------------------------------
-           REMOVE SELEÇÃO ANTERIOR
-        --------------------------------- */
+        /* Remove seleção anterior */
 
         document
             .querySelectorAll(".menu-item")
@@ -1259,66 +1365,52 @@
             });
 
 
-        /* ---------------------------------
-           ATIVA SISTEMA
-        --------------------------------- */
+        /* Seleciona sistema */
 
         button.classList.add("active");
 
 
-        /* ---------------------------------
-           ATUALIZA NOME
-        --------------------------------- */
+        /* Atualiza nome */
 
         document
             .getElementById("currentName")
             .textContent = name;
 
 
-        /* ---------------------------------
-           ESCONDE DESCRIÇÃO DA HOME
-        --------------------------------- */
+        /* Sai do modo inicial */
 
         document
             .getElementById("currentSystem")
             .classList.remove("home-mode");
 
 
-        /* ---------------------------------
-           ATUALIZA ÍCONE
-        --------------------------------- */
+        /* Atualiza ícone */
 
         const currentIcon =
             document.getElementById("currentIcon");
 
 
         currentIcon.className =
-            "bi "
-            + icon
-            + " current-icon";
+            "bi " +
+            icon +
+            " current-icon";
 
 
-        /* ---------------------------------
-           ESCONDE TELA INICIAL
-        --------------------------------- */
+        /* Esconde tela inicial */
 
         document
             .getElementById("welcomeScreen")
             .style.display = "none";
 
 
-        /* ---------------------------------
-           MOSTRA LOADING
-        --------------------------------- */
+        /* Mostra carregamento */
 
         document
             .getElementById("loading")
             .classList.add("active");
 
 
-        /* ---------------------------------
-           CARREGA IFRAME
-        --------------------------------- */
+        /* Carrega sistema */
 
         const frame =
             document.getElementById("systemFrame");
@@ -1326,10 +1418,6 @@
 
         frame.src = url;
 
-
-        /* ---------------------------------
-           REMOVE LOADING
-        --------------------------------- */
 
         frame.onload = function() {
 
@@ -1340,9 +1428,7 @@
         };
 
 
-        /* ---------------------------------
-           FECHA MENU MOBILE
-        --------------------------------- */
+        /* Fecha menu mobile */
 
         document
             .getElementById("sidebar")
@@ -1351,24 +1437,17 @@
     }
 
 
-
     /* =====================================
-       VOLTAR PARA A PÁGINA INICIAL
+       VOLTAR PARA PÁGINA INICIAL
     ====================================== */
 
     function goHome() {
 
 
-        /* ---------------------------------
-           LIMPA URL ATUAL
-        --------------------------------- */
-
         currentUrl = "";
 
 
-        /* ---------------------------------
-           REMOVE SELEÇÃO DOS SISTEMAS
-        --------------------------------- */
+        /* Remove seleção */
 
         document
             .querySelectorAll(".menu-item")
@@ -1379,27 +1458,21 @@
             });
 
 
-        /* ---------------------------------
-           ATUALIZA NOME
-        --------------------------------- */
+        /* Nome */
 
         document
             .getElementById("currentName")
             .textContent = "Central Integrada";
 
 
-        /* ---------------------------------
-           MOSTRA DESCRIÇÃO
-        --------------------------------- */
+        /* Modo inicial */
 
         document
             .getElementById("currentSystem")
             .classList.add("home-mode");
 
 
-        /* ---------------------------------
-           RESTAURA ÍCONE
-        --------------------------------- */
+        /* Ícone */
 
         document
             .getElementById("currentIcon")
@@ -1407,36 +1480,28 @@
                 "bi bi-grid-1x2-fill current-icon";
 
 
-        /* ---------------------------------
-           LIMPA IFRAME
-        --------------------------------- */
+        /* Limpa iframe */
 
         document
             .getElementById("systemFrame")
             .src = "about:blank";
 
 
-        /* ---------------------------------
-           MOSTRA TELA INICIAL
-        --------------------------------- */
+        /* Mostra tela inicial */
 
         document
             .getElementById("welcomeScreen")
             .style.display = "flex";
 
 
-        /* ---------------------------------
-           ESCONDE LOADING
-        --------------------------------- */
+        /* Esconde loading */
 
         document
             .getElementById("loading")
             .classList.remove("active");
 
 
-        /* ---------------------------------
-           FECHA MENU MOBILE
-        --------------------------------- */
+        /* Fecha menu mobile */
 
         document
             .getElementById("sidebar")
@@ -1444,6 +1509,61 @@
 
     }
 
+
+    /* =====================================
+       RECOLHER / EXPANDIR BARRA LATERAL
+    ====================================== */
+
+    function toggleSidebarCollapse() {
+
+
+        const sidebar =
+            document.getElementById("sidebar");
+
+
+        sidebar.classList.toggle("collapsed");
+
+
+        const button =
+            document.getElementById("collapseButton");
+
+
+        const icon =
+            button.querySelector("i");
+
+
+        if (sidebar.classList.contains("collapsed")) {
+
+
+            button.title = "Expandir menu";
+
+            button.setAttribute(
+                "aria-label",
+                "Expandir menu"
+            );
+
+
+            icon.className =
+                "bi bi-chevron-right";
+
+
+        } else {
+
+
+            button.title = "Recolher menu";
+
+            button.setAttribute(
+                "aria-label",
+                "Recolher menu"
+            );
+
+
+            icon.className =
+                "bi bi-chevron-left";
+
+        }
+
+    }
 
 
     /* =====================================
@@ -1454,9 +1574,7 @@
 
 
         if (!currentUrl) {
-
             return;
-
         }
 
 
@@ -1474,7 +1592,6 @@
     }
 
 
-
     /* =====================================
        ABRIR EM NOVA ABA
     ====================================== */
@@ -1484,9 +1601,11 @@
 
         if (!currentUrl) {
 
+
             alert(
                 "Selecione um sistema primeiro."
             );
+
 
             return;
 
@@ -1499,7 +1618,6 @@
         );
 
     }
-
 
 
     /* =====================================
@@ -1516,9 +1634,8 @@
     }
 
 
-
     /* =====================================
-       FECHAR MENU AO CLICAR FORA
+       FECHAR MENU MOBILE AO CLICAR FORA
     ====================================== */
 
     document.addEventListener(
@@ -1535,16 +1652,12 @@
 
 
             if (
-
                 window.innerWidth <= 700 &&
-
                 sidebar.classList.contains("open") &&
-
                 !sidebar.contains(event.target) &&
-
                 !menuButton.contains(event.target)
-
             ) {
+
 
                 sidebar.classList.remove("open");
 
@@ -1560,3 +1673,4 @@
 </body>
 
 </html>
+```

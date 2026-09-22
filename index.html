@@ -116,7 +116,7 @@
 
         .sidebar-header {
 
-            padding: 24px 20px;
+            padding: 18px 20px;
 
             border-bottom:
                 1px solid rgba(255, 255, 255, 0.15);
@@ -133,14 +133,24 @@
         }
 
 
-        .brand-icon {
+        /* =====================================
+           BOTÃO HOME
+        ====================================== */
+
+        .home-button {
 
             width: 45px;
 
             height: 45px;
 
+            padding: 0;
+
+            border: none;
+
             background:
                 rgba(255, 255, 255, 0.15);
+
+            color: white;
 
             border-radius: 10px;
 
@@ -151,6 +161,27 @@
             justify-content: center;
 
             font-size: 22px;
+
+            cursor: pointer;
+
+            transition:
+                all 0.2s ease;
+        }
+
+
+        .home-button:hover {
+
+            background: white;
+
+            color: #1b4079;
+
+            transform: scale(1.04);
+        }
+
+
+        .home-button:active {
+
+            transform: scale(0.98);
         }
 
 
@@ -346,6 +377,8 @@
             align-items: center;
 
             gap: 10px;
+
+            min-width: 0;
         }
 
 
@@ -354,6 +387,24 @@
             color: #1b4079;
 
             font-size: 20px;
+
+            flex-shrink: 0;
+        }
+
+
+        /* =====================================
+           TÍTULO DA TOPBAR
+        ====================================== */
+
+        .current-info {
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            min-width: 0;
         }
 
 
@@ -364,6 +415,38 @@
             font-weight: 600;
 
             color: #263238;
+
+            line-height: 1.2;
+        }
+
+
+        .current-description {
+
+            display: none;
+
+            font-size: 11px;
+
+            color: #7a828a;
+
+            margin-top: 3px;
+
+            line-height: 1.2;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+        }
+
+
+        /* =====================================
+           DESCRIÇÃO DA PÁGINA INICIAL
+        ====================================== */
+
+        .home-mode .current-description {
+
+            display: block;
         }
 
 
@@ -372,6 +455,8 @@
             display: flex;
 
             gap: 8px;
+
+            flex-shrink: 0;
         }
 
 
@@ -504,6 +589,10 @@
 
         /* =====================================
            CONTEÚDO DA TELA INICIAL
+
+           Mantido vazio propositalmente.
+           O logo funciona como elemento visual
+           principal da página inicial.
         ====================================== */
 
         .welcome-content {
@@ -512,60 +601,7 @@
 
             z-index: 2;
 
-            max-width: 600px;
-
-            padding: 30px;
-        }
-
-
-        .welcome-icon {
-
-            width: 75px;
-
-            height: 75px;
-
-            margin:
-                0 auto 20px;
-
-            border-radius: 18px;
-
-            background: #1b4079;
-
-            color: white;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            font-size: 32px;
-
-            box-shadow:
-                0 8px 20px
-                rgba(27, 64, 121, 0.20);
-        }
-
-
-        .welcome-content h1 {
-
-            color: #1b4079;
-
-            font-size: 28px;
-
-            font-weight: 700;
-
-            margin-bottom: 10px;
-        }
-
-
-        .welcome-content p {
-
-            color: #6c757d;
-
-            font-size: 15px;
-
-            margin: 0;
+            pointer-events: none;
         }
 
 
@@ -726,6 +762,14 @@
             }
 
 
+            .current-description {
+
+                font-size: 10px;
+
+                max-width: 230px;
+            }
+
+
             .topbar {
 
                 padding: 0 12px;
@@ -768,18 +812,27 @@
     >
 
 
-        <!-- CABEÇALHO -->
+        <!-- =====================================
+             CABEÇALHO / HOME
+        ====================================== -->
 
         <div class="sidebar-header">
 
             <div class="brand">
 
 
-                <div class="brand-icon">
+                <!-- BOTÃO HOME -->
+
+                <button
+                    class="home-button"
+                    title="Página inicial"
+                    aria-label="Página inicial"
+                    onclick="goHome()"
+                >
 
                     <i class="bi bi-grid-1x2-fill"></i>
 
-                </div>
+                </button>
 
 
                 <div>
@@ -799,14 +852,18 @@
         </div>
 
 
-        <!-- TÍTULO -->
+        <!-- =====================================
+             TÍTULO
+        ====================================== -->
 
         <div class="menu-title">
             Sistemas
         </div>
 
 
-        <!-- MENU -->
+        <!-- =====================================
+             MENU DE SISTEMAS
+        ====================================== -->
 
         <div class="menu">
 
@@ -951,7 +1008,10 @@
         <header class="topbar">
 
 
-            <div class="current-system">
+            <div
+                class="current-system home-mode"
+                id="currentSystem"
+            >
 
 
                 <!-- MENU MOBILE -->
@@ -974,20 +1034,36 @@
                 ></i>
 
 
-                <!-- NOME -->
+                <!-- INFORMAÇÕES -->
 
-                <span
-                    id="currentName"
-                    class="current-name"
-                >
-                    Central Integrada
-                </span>
+                <div class="current-info">
+
+
+                    <span
+                        id="currentName"
+                        class="current-name"
+                    >
+                        Central Integrada
+                    </span>
+
+
+                    <span
+                        id="currentDescription"
+                        class="current-description"
+                    >
+                        Selecione uma ferramenta no menu lateral para começar
+                    </span>
+
+
+                </div>
 
 
             </div>
 
 
-            <!-- BOTÕES -->
+            <!-- =====================================
+                 BOTÕES DA TOPBAR
+            ====================================== -->
 
             <div class="topbar-actions">
 
@@ -1044,7 +1120,8 @@
                 >
 
 
-                    <!-- LOGO DA EMPRESA -->
+                    <!-- LOGO DA EMPRESA
+                         COMO MARCA D'ÁGUA -->
 
                     <img
                         src="./logo.png"
@@ -1053,30 +1130,13 @@
                     >
 
 
-                    <!-- CONTEÚDO -->
+                    <!--
+                        Não há texto aqui.
+                        A página inicial utiliza
+                        somente o logo como marca d'água.
+                    -->
 
-                    <div class="welcome-content">
-
-
-                        <div class="welcome-icon">
-
-                            <i class="bi bi-grid-1x2-fill"></i>
-
-                        </div>
-
-
-                        <h1>
-                            Central Integrada
-                        </h1>
-
-
-                        <p>
-                            Selecione uma ferramenta no menu lateral
-                            para começar.
-                        </p>
-
-
-                    </div>
+                    <div class="welcome-content"></div>
 
 
                 </div>
@@ -1216,6 +1276,15 @@
 
 
         /* ---------------------------------
+           ESCONDE DESCRIÇÃO DA HOME
+        --------------------------------- */
+
+        document
+            .getElementById("currentSystem")
+            .classList.remove("home-mode");
+
+
+        /* ---------------------------------
            ATUALIZA ÍCONE
         --------------------------------- */
 
@@ -1269,6 +1338,100 @@
                 .classList.remove("active");
 
         };
+
+
+        /* ---------------------------------
+           FECHA MENU MOBILE
+        --------------------------------- */
+
+        document
+            .getElementById("sidebar")
+            .classList.remove("open");
+
+    }
+
+
+
+    /* =====================================
+       VOLTAR PARA A PÁGINA INICIAL
+    ====================================== */
+
+    function goHome() {
+
+
+        /* ---------------------------------
+           LIMPA URL ATUAL
+        --------------------------------- */
+
+        currentUrl = "";
+
+
+        /* ---------------------------------
+           REMOVE SELEÇÃO DOS SISTEMAS
+        --------------------------------- */
+
+        document
+            .querySelectorAll(".menu-item")
+            .forEach(item => {
+
+                item.classList.remove("active");
+
+            });
+
+
+        /* ---------------------------------
+           ATUALIZA NOME
+        --------------------------------- */
+
+        document
+            .getElementById("currentName")
+            .textContent = "Central Integrada";
+
+
+        /* ---------------------------------
+           MOSTRA DESCRIÇÃO
+        --------------------------------- */
+
+        document
+            .getElementById("currentSystem")
+            .classList.add("home-mode");
+
+
+        /* ---------------------------------
+           RESTAURA ÍCONE
+        --------------------------------- */
+
+        document
+            .getElementById("currentIcon")
+            .className =
+                "bi bi-grid-1x2-fill current-icon";
+
+
+        /* ---------------------------------
+           LIMPA IFRAME
+        --------------------------------- */
+
+        document
+            .getElementById("systemFrame")
+            .src = "about:blank";
+
+
+        /* ---------------------------------
+           MOSTRA TELA INICIAL
+        --------------------------------- */
+
+        document
+            .getElementById("welcomeScreen")
+            .style.display = "flex";
+
+
+        /* ---------------------------------
+           ESCONDE LOADING
+        --------------------------------- */
+
+        document
+            .getElementById("loading")
+            .classList.remove("active");
 
 
         /* ---------------------------------

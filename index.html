@@ -491,6 +491,36 @@
     }
 
 
+    /* =====================================
+       ORDENAÇÃO DOS ITENS DO MENU
+    ====================================== */
+
+    .menu-item {
+        user-select: none;
+    }
+
+    .menu-item.dragging {
+        opacity: 0.45;
+    }
+
+    .menu-item.drag-over {
+        position: relative;
+    }
+
+    .menu-item.drag-over::after {
+        content: "";
+        position: absolute;
+        left: 8px;
+        right: 8px;
+        bottom: -3px;
+        height: 3px;
+        background: #9fc5ed;
+        border-radius: 3px;
+        box-shadow: 0 0 6px rgba(159, 197, 237, 0.45);
+        pointer-events: none;
+    }
+
+
     .menu-item:hover {
 
         background:
@@ -1662,6 +1692,8 @@
 
 let currentUrl = "";
 
+let menuItemFoiArrastado = false;
+
 
 /* Acrescenta um parâmetro de versão para sempre
    buscar a versão mais nova (evita cache do iframe) */
@@ -1680,6 +1712,11 @@ function comVersao(url) {
 ====================================== */
 
 function openSystem(button) {
+
+    if (menuItemFoiArrastado) {
+        menuItemFoiArrastado = false;
+        return;
+    }
 
 
     const url =
@@ -1940,6 +1977,196 @@ function toggleSidebarCollapse() {
 
 
 /* =====================================
+   ORDENAR ITENS DO MENU
+====================================== */
+
+const MENU_ORDEM_STORAGE = "centralIntegrada_menuOrdem";
+
+function configurarOrdenacaoMenu() {
+
+    const menu = document.querySelector(".menu");
+
+    if (!menu) {
+        return;
+    }
+
+    menu.querySelectorAll(".menu-item").forEach(item => {
+
+        item.setAttribute("draggable", "true");
+
+        item.addEventListener("dragstart", function(event) {
+
+            menuItemFoiArrastado = true;
+            item.classList.add("dragging");
+
+            event.dataTransfer.effectAllowed = "move";
+            event.dataTransfer.setData(
+                "text/plain",
+                item.dataset.url || item.dataset.name || ""
+            );
+
+        });
+
+        item.addEventListener("dragend", function() {
+
+            item.classList.remove("dragging");
+
+            menu.querySelectorAll(".menu-item").forEach(outroItem => {
+                outroItem.classList.remove("drag-over");
+            });
+
+        });
+
+        item.addEventListener("dragover", function(event) {
+
+            event.preventDefault();
+
+            const dragging = menu.querySelector(".menu-item.dragging");
+
+            if (!dragging || dragging === item) {
+                return;
+            }
+
+            event.dataTransfer.dropEffect = "move";
+
+            menu.querySelectorAll(".menu-item").forEach(outroItem => {
+                outroItem.classList.remove("drag-over");
+            });
+
+            item.classList.add("drag-over");
+
+        });
+
+        item.addEventListener("dragleave", function(event) {
+
+            if (!item.contains(event.relatedTarget)) {
+                item.classList.remove("drag-over");
+            }
+
+        });
+
+        item.addEventListener("drop", function(event) {
+
+            event.preventDefault();
+
+            const dragging = menu.querySelector(".menu-item.dragging");
+
+            if (!dragging || dragging === item) {
+                return;
+            }
+
+            const rect = item.getBoundingClientRect();
+
+            const inserirAntes =
+                event.clientY < rect.top + (rect.height / 2);
+
+            if (inserirAntes) {
+                menu.insertBefore(dragging, item);
+            } else {
+                menu.insertBefore(dragging, item.nextSibling);
+            }
+
+            item.classList.remove("drag-over");
+
+            salvarOrdemMenu();
+
+        });
+
+    });
+
+    restaurarOrdemMenu();
+
+}
+
+
+function salvarOrdemMenu() {
+
+    const menu = document.querySelector(".menu");
+
+    if (!menu) {
+        return;
+    }
+
+    const ordem = Array.from(
+        menu.querySelectorAll(".menu-item")
+    ).map(item =>
+        item.dataset.url ||
+        item.dataset.name ||
+        ""
+    );
+
+    localStorage.setItem(
+        MENU_ORDEM_STORAGE,
+        JSON.stringify(ordem)
+    );
+
+}
+
+
+function restaurarOrdemMenu() {
+
+    const menu = document.querySelector(".menu");
+
+    if (!menu) {
+        return;
+    }
+
+    const ordemSalva =
+        localStorage.getItem(MENU_ORDEM_STORAGE);
+
+    if (!ordemSalva) {
+        return;
+    }
+
+    try {
+
+        const ordem = JSON.parse(ordemSalva);
+
+        if (!Array.isArray(ordem)) {
+            return;
+        }
+
+        const itens = Array.from(
+            menu.querySelectorAll(".menu-item")
+        );
+
+        const mapa = new Map(
+            itens.map(item => [
+                item.dataset.url ||
+                item.dataset.name ||
+                "",
+                item
+            ])
+        );
+
+        ordem.forEach(chave => {
+
+            const item = mapa.get(chave);
+
+            if (item) {
+                menu.appendChild(item);
+                mapa.delete(chave);
+            }
+
+        });
+
+        mapa.forEach(item => {
+            menu.appendChild(item);
+        });
+
+    } catch (erro) {
+
+        console.warn(
+            "Não foi possível restaurar a ordem do menu.",
+            erro
+        );
+
+    }
+
+}
+
+
+/* =====================================
    ATUALIZAR SISTEMA
 ====================================== */
 
@@ -2042,6 +2269,13 @@ document.addEventListener(
 
     }
 );
+
+/* Inicializa a ordenação do menu */
+document.addEventListener(
+    "DOMContentLoaded",
+    configurarOrdenacaoMenu
+);
+
 
 </script>
 

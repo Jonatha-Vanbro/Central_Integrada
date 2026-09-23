@@ -1,1223 +1,1464 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+<head> 
 
-<head>
+<meta charset="UTF-8">
 
-    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Central Integrada</title>
-
-    <link rel="icon"
-          type="image/png"
-          href="./favicon.png">
-
-    <!-- Bootstrap -->
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet">
-
-    <!-- Bootstrap Icons -->
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-        rel="stylesheet">
+<title>Central Integrada</title>
 
 
-    <style>
+<!-- FAVICON -->
 
-        * {
-            box-sizing: border-box;
-        }
+<link
+    rel="icon"
+    type="image/png"
+    href="./favicon.png"
+>
 
-
-        html,
-        body {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f1f4f8;
-            overflow: hidden;
-        }
+<link
+    rel="shortcut icon"
+    type="image/png"
+    href="./favicon.png"
+>
 
 
-        /* =========================================================
-           SIDEBAR
-        ========================================================= */
+<!-- BOOTSTRAP -->
+
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+>
+
+
+<!-- BOOTSTRAP ICONS -->
+
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+>
+
+
+<style>
+
+
+    /* =====================================
+       CONFIGURAÇÕES GERAIS
+    ====================================== */
+
+    * {
+        box-sizing: border-box;
+    }
+
+
+    body {
+        margin: 0;
+
+        font-family:
+            Arial,
+            Helvetica,
+            sans-serif;
+
+        background: #f1f4f8;
+
+        overflow: hidden;
+    }
+
+
+    /* =====================================
+       CONTAINER PRINCIPAL
+    ====================================== */
+
+    .app-container {
+
+        display: flex;
+
+        width: 100vw;
+
+        height: 100vh;
+    }
+
+
+    /* =====================================
+       BARRA LATERAL
+    ====================================== */
+
+    .sidebar {
+
+        width: 302px;
+
+        height: 100vh;
+
+        background: #1e2a4a;
+
+        color: white;
+
+        display: flex;
+
+        flex-direction: column;
+
+        flex-shrink: 0;
+
+        box-shadow:
+            3px 0 10px rgba(0, 0, 0, 0.12);
+
+        z-index: 10;
+
+        transition:
+            width 0.25s ease;
+    }
+
+
+    /* BARRA RECOLHIDA */
+
+    .sidebar.collapsed {
+
+        width: 76px;
+    }
+
+
+    /* =====================================
+       CABEÇALHO DA BARRA
+    ====================================== */
+
+    .sidebar-header {
+
+        padding: 18px 20px;
+
+        border-bottom:
+            1px solid rgba(255, 255, 255, 0.15);
+
+        position: relative;
+
+        transition:
+            padding 0.25s ease;
+    }
+
+
+    .sidebar.collapsed .sidebar-header {
+
+        padding: 18px 10px;
+    }
+
+
+    /* =====================================
+       MARCA
+    ====================================== */
+
+    .brand {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+    }
+
+
+    /* =====================================
+       BOTÃO HOME
+    ====================================== */
+
+    .home-button {
+
+        width: 45px;
+
+        height: 45px;
+
+        padding: 0;
+
+        border: none;
+
+        background:
+            rgba(255, 255, 255, 0.15);
+
+        color: white;
+
+        border-radius: 10px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 22px;
+
+        cursor: pointer;
+
+        transition:
+            all 0.2s ease;
+
+        flex-shrink: 0;
+    }
+
+
+    .home-button:hover {
+
+        background: white;
+
+        color: #1b4079;
+
+        transform: scale(1.04);
+    }
+
+
+    .home-button:active {
+
+        transform: scale(0.98);
+    }
+
+
+    /* =====================================
+       TÍTULO
+    ====================================== */
+
+    .brand-title {
+
+        font-size: 19px;
+
+        font-weight: 700;
+
+        margin: 0;
+
+        white-space: nowrap;
+    }
+
+
+    .brand-subtitle {
+
+        font-size: 11px;
+
+        opacity: 0.75;
+
+        margin-top: 2px;
+
+        white-space: nowrap;
+    }
+
+
+    /* =====================================
+       BOTÃO RECOLHER
+    ====================================== */
+
+    .collapse-button {
+
+        width: 30px;
+
+        height: 30px;
+
+        padding: 0;
+
+        border: none;
+
+        background:
+            rgba(255, 255, 255, 0.10);
+
+        color:
+            rgba(255, 255, 255, 0.85);
+
+        border-radius: 7px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        cursor: pointer;
+
+        transition:
+            all 0.2s ease;
+
+        margin-left: auto;
+
+        flex-shrink: 0;
+    }
+
+
+    .collapse-button:hover {
+
+        background: white;
+
+        color: #1b4079;
+    }
+
+
+    /* =====================================
+       BOTÃO EXPANDIR
+    ====================================== */
+
+    .expand-button {
+
+        display: none;
+
+        width: 38px;
+
+        height: 34px;
+
+        margin:
+            10px auto 0;
+
+        padding: 0;
+
+        border: none;
+
+        background:
+            rgba(255, 255, 255, 0.10);
+
+        color:
+            rgba(255, 255, 255, 0.90);
+
+        border-radius: 8px;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 16px;
+
+        cursor: pointer;
+
+        transition:
+            all 0.2s ease;
+    }
+
+
+    .expand-button:hover {
+
+        background: white;
+
+        color: #1b4079;
+    }
+
+
+    /* =====================================
+       ESTADO RECOLHIDO
+    ====================================== */
+
+    .sidebar.collapsed .brand {
+
+        justify-content: center;
+    }
+
+
+    .sidebar.collapsed .brand > div {
+
+        display: none;
+    }
+
+
+    .sidebar.collapsed .home-button {
+
+        margin: 0 auto;
+    }
+
+
+    .sidebar.collapsed .collapse-button {
+
+        display: none;
+    }
+
+
+    .sidebar.collapsed .expand-button {
+
+        display: flex;
+    }
+
+
+    /* =====================================
+       TÍTULO DO MENU
+    ====================================== */
+
+    .menu-title {
+
+        padding:
+            22px 20px 10px;
+
+        font-size: 11px;
+
+        font-weight: 700;
+
+        text-transform: uppercase;
+
+        letter-spacing: 1px;
+
+        opacity: 0.6;
+
+        white-space: nowrap;
+
+        transition:
+            all 0.2s ease;
+    }
+
+
+    /* MODO RECOLHIDO */
+
+    .sidebar.collapsed .menu-title {
+
+        text-align: center;
+
+        padding-left: 0;
+
+        padding-right: 0;
+
+        font-size: 0;
+    }
+
+
+    .sidebar.collapsed .menu-title::after {
+
+        content: "•";
+
+        font-size: 16px;
+
+        opacity: 0.6;
+    }
+
+
+    /* =====================================
+       MENU
+    ====================================== */
+
+    .menu {
+
+        padding:
+            0 12px;
+
+        overflow-y: auto;
+
+        overflow-x: hidden;
+    }
+
+
+    /* =====================================
+       ITEM DO MENU
+    ====================================== */
+
+    .menu-item {
+
+        width: 100%;
+
+        border: none;
+
+        background: transparent;
+
+        color:
+            rgba(255, 255, 255, 0.82);
+
+        padding:
+            13px 14px;
+
+        margin-bottom: 5px;
+
+        border-radius: 8px;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+        text-align: left;
+
+        cursor: pointer;
+
+        transition:
+            all 0.2s ease;
+
+        font-size: 14px;
+    }
+
+
+    .menu-item i {
+
+        font-size: 18px;
+
+        width: 22px;
+
+        text-align: center;
+
+        flex-shrink: 0;
+    }
+
+
+    .menu-item span {
+
+        white-space: nowrap;
+
+        overflow: hidden;
+    }
+
+
+    .menu-item:hover {
+
+        background:
+            rgba(255, 255, 255, 0.10);
+
+        color: white;
+    }
+
+
+    .menu-item.active {
+
+        background: white;
+
+        color: #1b4079;
+
+        font-weight: 600;
+
+        box-shadow:
+            0 3px 8px rgba(0, 0, 0, 0.12);
+    }
+
+
+    /* =====================================
+       MENU RECOLHIDO
+    ====================================== */
+
+    .sidebar.collapsed .menu {
+
+        padding-left: 10px;
+
+        padding-right: 10px;
+    }
+
+
+    .sidebar.collapsed .menu-item {
+
+        justify-content: center;
+
+        padding:
+            13px 0;
+
+        gap: 0;
+    }
+
+
+    .sidebar.collapsed .menu-item span {
+
+        display: none;
+    }
+
+
+    .sidebar.collapsed .menu-item i {
+
+        width: auto;
+    }
+
+
+    /* =====================================
+       RODAPÉ
+    ====================================== */
+
+    .sidebar-footer {
+
+        margin-top: auto;
+
+        padding:
+            16px 20px;
+
+        border-top:
+            1px solid rgba(255, 255, 255, 0.15);
+
+        font-size: 11px;
+
+        opacity: 0.65;
+
+        text-align: center;
+
+        white-space: nowrap;
+
+        overflow: hidden;
+    }
+
+
+    .sidebar.collapsed .sidebar-footer {
+
+        padding:
+            16px 5px;
+
+        font-size: 0;
+    }
+
+
+    .sidebar.collapsed .sidebar-footer::before {
+
+        content: "CI";
+
+        font-size: 11px;
+
+        font-weight: 600;
+    }
+
+
+    /* =====================================
+       ÁREA PRINCIPAL
+    ====================================== */
+
+    .main-content {
+
+        flex: 1;
+
+        height: 100vh;
+
+        display: flex;
+
+        flex-direction: column;
+
+        min-width: 0;
+    }
+
+
+    /* =====================================
+       TOPBAR
+    ====================================== */
+
+    .topbar {
+
+        height: 68px;
+
+        background: white;
+
+        border-bottom:
+            1px solid #dee2e6;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        padding:
+            0 22px;
+
+        flex-shrink: 0;
+    }
+
+
+    .current-system {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 10px;
+
+        min-width: 0;
+    }
+
+
+    .current-icon {
+
+        color: #1b4079;
+
+        font-size: 20px;
+
+        flex-shrink: 0;
+    }
+
+
+    .current-info {
+
+        display: flex;
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        min-width: 0;
+    }
+
+
+    .current-name {
+
+        font-size: 16px;
+
+        font-weight: 600;
+
+        color: #263238;
+
+        line-height: 1.2;
+    }
+
+
+    .current-description {
+
+        display: none;
+
+        font-size: 11px;
+
+        color: #7a828a;
+
+        margin-top: 3px;
+
+        line-height: 1.2;
+
+        white-space: nowrap;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+    }
+
+
+    .home-mode .current-description {
+
+        display: block;
+    }
+
+
+    /* =====================================
+       BOTÕES TOPBAR
+    ====================================== */
+
+    .topbar-actions {
+
+        display: flex;
+
+        gap: 8px;
+
+        flex-shrink: 0;
+    }
+
+
+    .topbar-btn {
+
+        border:
+            1px solid #d9dee5;
+
+        background: white;
+
+        color: #495057;
+
+        border-radius: 7px;
+
+        padding:
+            7px 11px;
+
+        cursor: pointer;
+
+        transition: 0.2s;
+    }
+
+
+    .topbar-btn:hover {
+
+        background: #f1f4f8;
+
+        color: #1b4079;
+    }
+
+
+    /* =====================================
+       ÁREA DO CONTEÚDO
+    ====================================== */
+
+    .content-area {
+
+        flex: 1;
+
+        padding: 12px;
+
+        min-height: 0;
+    }
+
+
+    .iframe-container {
+
+        width: 100%;
+
+        height: 100%;
+
+        background: white;
+
+        border-radius: 8px;
+
+        overflow: hidden;
+
+        box-shadow:
+            0 2px 8px rgba(0, 0, 0, 0.07);
+
+        position: relative;
+    }
+
+
+    #systemFrame {
+
+        width: 100%;
+
+        height: 100%;
+
+        border: none;
+
+        display: block;
+    }
+
+
+    /* =====================================
+       TELA INICIAL
+    ====================================== */
+
+    .welcome-screen {
+
+        position: absolute;
+
+        inset: 0;
+
+        background: white;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        text-align: center;
+
+        overflow: hidden;
+
+        z-index: 2;
+    }
+
+
+    .welcome-logo {
+
+        position: absolute;
+
+        left: 50%;
+
+        top: 50%;
+
+        transform:
+            translate(-50%, -50%);
+
+        width:
+            min(65%, 520px);
+
+        max-height: 65%;
+
+        object-fit: contain;
+
+        opacity: 0.09;
+
+        pointer-events: none;
+
+        user-select: none;
+    }
+
+
+    .welcome-content {
+
+        position: relative;
+
+        z-index: 2;
+
+        pointer-events: none;
+    }
+
+
+    /* =====================================
+       LOADING
+    ====================================== */
+
+    .loading {
+
+        position: absolute;
+
+        inset: 0;
+
+        background:
+            rgba(255, 255, 255, 0.90);
+
+        display: none;
+
+        align-items: center;
+
+        justify-content: center;
+
+        z-index: 5;
+    }
+
+
+    .loading.active {
+
+        display: flex;
+    }
+
+
+    .loading-content {
+
+        text-align: center;
+
+        color: #1b4079;
+    }
+
+
+    .loading-content .spinner-border {
+
+        width: 35px;
+
+        height: 35px;
+
+        margin-bottom: 12px;
+    }
+
+
+    .loading-content div {
+
+        font-size: 13px;
+    }
+
+
+    /* =====================================
+       BOTÃO MENU MOBILE
+    ====================================== */
+
+    .mobile-menu-btn {
+
+        display: none;
+
+        border: none;
+
+        background: transparent;
+
+        font-size: 22px;
+
+        color: #1b4079;
+
+        margin-right: 10px;
+    }
+
+
+    /* =====================================
+       RESPONSIVIDADE
+    ====================================== */
+
+    @media (max-width: 900px) {
 
         .sidebar {
 
-            position: fixed;
-
-            top: 0;
-            left: 0;
-
-            width: 302px;
-            height: 100vh;
-
-            background: #1e2a4a;
-            color: #fff;
-
-            display: flex;
-            flex-direction: column;
-
-            z-index: 1000;
-
-            transition:
-                width .25s ease,
-                left .25s ease;
-
-            overflow: hidden;
+            width: 230px;
         }
 
 
         .sidebar.collapsed {
+
             width: 76px;
         }
 
 
-        /* =========================================================
-           SIDEBAR HEADER
-        ========================================================= */
+        .brand-title {
 
-        .sidebar-header {
-
-            height: 82px;
-
-            padding: 0 18px;
-
-            display: flex;
-            align-items: center;
-
-            border-bottom:
-                1px solid rgba(255,255,255,.10);
-
-            flex-shrink: 0;
-        }
-
-
-        .home-button {
-
-            width: 42px;
-            height: 42px;
-
-            border: none;
-            border-radius: 10px;
-
-            background: #1b4079;
-            color: #fff;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 20px;
-
-            cursor: pointer;
-
-            flex-shrink: 0;
-
-            transition:
-                background .2s ease,
-                transform .2s ease;
-        }
-
-
-        .home-button:hover {
-
-            background: #285895;
-
-            transform: translateY(-1px);
-        }
-
-
-        .sidebar-title {
-
-            margin-left: 12px;
-
-            min-width: 0;
-
-            flex: 1;
-        }
-
-
-        .sidebar-title h1 {
-
-            margin: 0;
-
-            font-size: 18px;
-            font-weight: 700;
-
-            line-height: 1.2;
-
-            white-space: nowrap;
-        }
-
-
-        .sidebar-title span {
-
-            display: block;
-
-            margin-top: 3px;
-
-            font-size: 11px;
-
-            color: #aebbd4;
-
-            white-space: nowrap;
-        }
-
-
-        .collapse-button {
-
-            width: 32px;
-            height: 32px;
-
-            border: none;
-            border-radius: 7px;
-
-            background: transparent;
-            color: #c8d2e5;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            cursor: pointer;
-
-            font-size: 18px;
-
-            flex-shrink: 0;
-        }
-
-
-        .collapse-button:hover {
-
-            background: rgba(255,255,255,.08);
-            color: #fff;
-        }
-
-
-        /* =========================================================
-           MENU
-        ========================================================= */
-
-        .menu {
-
-            flex: 1;
-
-            padding: 18px 12px;
-
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
-
-
-        .menu::-webkit-scrollbar {
-            width: 6px;
-        }
-
-
-        .menu::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-
-        .menu::-webkit-scrollbar-thumb {
-
-            background:
-                rgba(255,255,255,.15);
-
-            border-radius: 10px;
-        }
-
-
-        .menu-title {
-
-            padding: 0 12px 10px;
-
-            font-size: 11px;
-
-            font-weight: 700;
-
-            color: #8f9db9;
-
-            text-transform: uppercase;
-
-            letter-spacing: .08em;
-
-            white-space: nowrap;
+            font-size: 16px;
         }
 
 
         .menu-item {
 
-            width: 100%;
+            font-size: 13px;
+        }
 
-            min-height: 48px;
+    }
 
-            margin-bottom: 5px;
 
-            padding: 0 12px;
+    /* =====================================
+       CELULAR
+    ====================================== */
 
-            border: none;
-            border-radius: 9px;
+    @media (max-width: 700px) {
 
-            background: transparent;
+        body {
 
-            color: #dce4f2;
+            overflow: auto;
+        }
 
-            display: flex;
-            align-items: center;
 
-            text-align: left;
+        .app-container {
 
-            cursor: pointer;
+            height: auto;
+
+            min-height: 100vh;
+        }
+
+
+        .sidebar {
+
+            position: fixed;
+
+            left: -280px;
+
+            top: 0;
+
+            width: 280px;
 
             transition:
-                background .2s ease,
-                color .2s ease;
+                left 0.3s ease;
+
+            z-index: 1000;
         }
 
 
-        .menu-item i {
+        /* No celular a barra não fica estreita */
 
-            width: 26px;
+        .sidebar.collapsed {
 
-            margin-right: 10px;
-
-            font-size: 18px;
-
-            text-align: center;
-
-            flex-shrink: 0;
+            width: 280px;
         }
 
 
-        .menu-item span {
+        .sidebar.open {
 
-            font-size: 13px;
-
-            white-space: nowrap;
-
-            overflow: hidden;
-
-            text-overflow: ellipsis;
+            left: 0;
         }
 
 
-        .menu-item:hover {
+        /* Restaura aparência normal */
 
-            background: rgba(255,255,255,.08);
-            color: #fff;
+        .sidebar.collapsed .sidebar-header {
+
+            padding:
+                18px 20px;
         }
 
 
-        .menu-item.active {
+        .sidebar.collapsed .brand {
 
-            background: #1b4079;
-            color: #fff;
-
-            box-shadow:
-                inset 3px 0 0 #72a7e8;
+            justify-content: flex-start;
         }
 
 
-        /* =========================================================
-           SIDEBAR COLLAPSED
-        ========================================================= */
+        .sidebar.collapsed .brand > div {
 
-        .sidebar.collapsed .sidebar-title,
-        .sidebar.collapsed .collapse-button,
-        .sidebar.collapsed .menu-title,
-        .sidebar.collapsed .menu-item span {
+            display: block;
+        }
+
+
+        .sidebar.collapsed .home-button {
+
+            margin: 0;
+        }
+
+
+        .sidebar.collapsed .collapse-button {
+
+            display: flex;
+        }
+
+
+        .sidebar.collapsed .expand-button {
 
             display: none;
         }
 
 
-        .sidebar.collapsed .sidebar-header {
+        .sidebar.collapsed .menu-title {
 
-            padding: 0;
+            text-align: left;
 
-            justify-content: center;
+            padding-left: 20px;
+
+            padding-right: 20px;
+
+            font-size: 11px;
+        }
+
+
+        .sidebar.collapsed .menu-title::after {
+
+            display: none;
         }
 
 
         .sidebar.collapsed .menu {
 
-            padding:
-                18px 10px;
+            padding-left: 12px;
+
+            padding-right: 12px;
         }
 
 
         .sidebar.collapsed .menu-item {
 
-            justify-content: center;
+            justify-content: flex-start;
 
-            padding: 0;
+            padding:
+                13px 14px;
+
+            gap: 12px;
+        }
+
+
+        .sidebar.collapsed .menu-item span {
+
+            display: inline;
         }
 
 
         .sidebar.collapsed .menu-item i {
 
-            margin: 0;
-        }
-
-
-        /* =========================================================
-           SIDEBAR FOOTER
-        ========================================================= */
-
-        .sidebar-footer {
-
-            padding: 15px 18px;
-
-            border-top:
-                1px solid rgba(255,255,255,.10);
-
-            color: #8f9db9;
-
-            font-size: 10px;
-
-            line-height: 1.5;
-
-            flex-shrink: 0;
-
-            white-space: nowrap;
+            width: 22px;
         }
 
 
         .sidebar.collapsed .sidebar-footer {
 
+            padding:
+                16px 20px;
+
+            font-size: 11px;
+        }
+
+
+        .sidebar.collapsed .sidebar-footer::before {
+
             display: none;
         }
 
 
-        /* =========================================================
-           MAIN
-        ========================================================= */
+        .main-content {
 
-        .main {
+            width: 100%;
 
-            position: fixed;
-
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 302px;
-
-            display: flex;
-            flex-direction: column;
-
-            transition:
-                left .25s ease;
+            height: 100vh;
         }
 
 
-        .sidebar.collapsed ~ .main {
+        .mobile-menu-btn {
 
-            left: 76px;
+            display: block;
         }
 
 
-        /* =========================================================
-           TOPBAR
-        ========================================================= */
+        .current-name {
+
+            font-size: 14px;
+        }
+
+
+        .current-description {
+
+            font-size: 10px;
+
+            max-width: 230px;
+        }
+
 
         .topbar {
 
-            height: 64px;
-
-            background: #fff;
-
-            border-bottom:
-                1px solid #dce2ea;
-
-            display: flex;
-            align-items: center;
-
             padding:
-                0 20px;
-
-            flex-shrink: 0;
-
-            box-shadow:
-                0 1px 3px rgba(0,0,0,.04);
-
-            z-index: 20;
+                0 12px;
         }
 
 
-        .mobile-menu-button {
+        .content-area {
 
-            display: none;
-
-            width: 38px;
-            height: 38px;
-
-            margin-right: 12px;
-
-            border: none;
-            border-radius: 8px;
-
-            background: #1e2a4a;
-            color: #fff;
-
-            align-items: center;
-            justify-content: center;
-
-            cursor: pointer;
-
-            font-size: 19px;
-        }
-
-
-        .current-system {
-
-            flex: 1;
-
-            min-width: 0;
-
-            display: flex;
-            align-items: center;
-
-            gap: 10px;
-        }
-
-
-        .current-system-icon {
-
-            width: 36px;
-            height: 36px;
-
-            border-radius: 8px;
-
-            background: #eaf0f8;
-
-            color: #1b4079;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 18px;
-
-            flex-shrink: 0;
-        }
-
-
-        .current-system-name {
-
-            font-size: 15px;
-
-            font-weight: 600;
-
-            color: #27344d;
-
-            white-space: nowrap;
-
-            overflow: hidden;
-
-            text-overflow: ellipsis;
-        }
-
-
-        .topbar-actions {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 7px;
-        }
-
-
-        .topbar-button {
-
-            width: 36px;
-            height: 36px;
-
-            border: 1px solid #d9e0e9;
-
-            border-radius: 8px;
-
-            background: #fff;
-
-            color: #53627a;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            cursor: pointer;
-
-            font-size: 17px;
-
-            transition:
-                background .2s ease,
-                color .2s ease,
-                border-color .2s ease;
-        }
-
-
-        .topbar-button:hover {
-
-            background: #1e2a4a;
-            border-color: #1e2a4a;
-
-            color: #fff;
-        }
-
-
-        /* =========================================================
-           CONTENT
-        ========================================================= */
-
-        .content {
-
-            position: relative;
-
-            flex: 1;
-
-            min-height: 0;
-
-            padding: 20px;
-
-            overflow: hidden;
-        }
-
-
-        .iframe-container {
-
-            position: relative;
-
-            width: 100%;
-            height: 100%;
-
-            background: #fff;
-
-            border-radius: 10px;
-
-            overflow: hidden;
-
-            box-shadow:
-                0 2px 8px rgba(20,35,60,.08);
-        }
-
-
-        #systemFrame {
-
-            width: 100%;
-            height: 100%;
-
-            border: none;
-
-            display: none;
-
-            background: #fff;
-        }
-
-
-        /* =========================================================
-           WELCOME
-        ========================================================= */
-
-        .welcome {
-
-            position: absolute;
-
-            inset: 0;
-
-            display: flex;
-
-            align-items: center;
-            justify-content: center;
-
-            background: #fff;
-
-            overflow: hidden;
-        }
-
-
-        .welcome::before {
-
-            content: "";
-
-            position: absolute;
-
-            width: 500px;
-            height: 500px;
-
-            border-radius: 50%;
-
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(30,42,74,.06),
-                    transparent 70%
-                );
-
-            pointer-events: none;
-        }
-
-
-        .welcome-content {
-
-            position: relative;
-
-            z-index: 2;
-
-            text-align: center;
-
-            max-width: 600px;
-
-            padding: 30px;
+            padding: 7px;
         }
 
 
         .welcome-logo {
 
-            width: 180px;
+            width: 75%;
 
-            max-width: 60vw;
-
-            margin-bottom: 25px;
-
-            opacity: .95;
+            opacity: 0.08;
         }
 
+    }
 
-        .welcome-title {
 
-            margin: 0;
-
-            color: #1e2a4a;
-
-            font-size: 28px;
-
-            font-weight: 700;
-        }
-
-
-        .welcome-text {
-
-            margin-top: 10px;
-
-            color: #718096;
-
-            font-size: 14px;
-
-            line-height: 1.6;
-        }
-
-
-        /* =========================================================
-           LOADING
-        ========================================================= */
-
-        .loading {
-
-            position: absolute;
-
-            inset: 0;
-
-            display: none;
-
-            align-items: center;
-            justify-content: center;
-
-            background:
-                rgba(255,255,255,.88);
-
-            z-index: 10;
-        }
-
-
-        .loading-content {
-
-            text-align: center;
-
-            color: #1e2a4a;
-        }
-
-
-        .loading-spinner {
-
-            width: 36px;
-            height: 36px;
-
-            margin: 0 auto 12px;
-
-            border:
-                3px solid #dbe3ef;
-
-            border-top-color:
-                #1b4079;
-
-            border-radius: 50%;
-
-            animation:
-                spin .8s linear infinite;
-        }
-
-
-        .loading-text {
-
-            font-size: 13px;
-
-            color: #65748b;
-        }
-
-
-        @keyframes spin {
-
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-
-        /* =========================================================
-           MOBILE OVERLAY
-        ========================================================= */
-
-        .sidebar-overlay {
-
-            position: fixed;
-
-            inset: 0;
-
-            background:
-                rgba(0,0,0,.45);
-
-            z-index: 999;
-
-            display: none;
-        }
-
-
-        /* =========================================================
-           RESPONSIVE
-        ========================================================= */
-
-        @media (max-width: 900px) {
-
-            .sidebar {
-
-                width: 280px;
-
-                left: -280px;
-
-                box-shadow:
-                    5px 0 20px rgba(0,0,0,.15);
-            }
-
-
-            .sidebar.mobile-open {
-
-                left: 0;
-            }
-
-
-            .sidebar.collapsed {
-
-                width: 280px;
-            }
-
-
-            .sidebar.collapsed .sidebar-title,
-            .sidebar.collapsed .collapse-button,
-            .sidebar.collapsed .menu-title,
-            .sidebar.collapsed .menu-item span {
-
-                display: block;
-            }
-
-
-            .sidebar.collapsed .sidebar-header {
-
-                padding: 0 18px;
-
-                justify-content: initial;
-            }
-
-
-            .sidebar.collapsed .menu {
-
-                padding: 18px 12px;
-            }
-
-
-            .sidebar.collapsed .menu-item {
-
-                justify-content: initial;
-
-                padding: 0 12px;
-            }
-
-
-            .sidebar.collapsed .menu-item i {
-
-                margin-right: 10px;
-            }
-
-
-            .sidebar.collapsed .sidebar-footer {
-
-                display: block;
-            }
-
-
-            .main,
-            .sidebar.collapsed ~ .main {
-
-                left: 0;
-            }
-
-
-            .mobile-menu-button {
-
-                display: flex;
-            }
-
-
-            .sidebar-overlay.active {
-
-                display: block;
-            }
-        }
-
-
-        @media (max-width: 576px) {
-
-            .topbar {
-
-                height: 58px;
-
-                padding: 0 12px;
-            }
-
-
-            .content {
-
-                padding: 10px;
-            }
-
-
-            .current-system-name {
-
-                font-size: 13px;
-            }
-
-
-            .current-system-icon {
-
-                width: 32px;
-                height: 32px;
-
-                font-size: 16px;
-            }
-
-
-            .topbar-button {
-
-                width: 34px;
-                height: 34px;
-            }
-
-
-            .welcome-title {
-
-                font-size: 23px;
-            }
-
-
-            .welcome-text {
-
-                font-size: 13px;
-            }
-
-
-            .welcome-logo {
-
-                width: 150px;
-            }
-        }
-
-    </style>
+</style>
 
 </head>
 
-
 <body>
 
+<div class="app-container">
 
-    <!-- =========================================================
-         SIDEBAR
-    ========================================================== -->
 
-    <aside
-        id="sidebar"
-        class="sidebar"
-    >
+<!-- =====================================
+     MENU LATERAL
+====================================== -->
 
-        <div class="sidebar-header">
+<aside
+    class="sidebar"
+    id="sidebar"
+>
+
+
+    <!-- CABEÇALHO -->
+
+    <div class="sidebar-header">
+
+
+        <div class="brand">
+
+
+            <!-- BOTÃO HOME -->
 
             <button
                 class="home-button"
-                onclick="goHome()"
                 title="Página inicial"
+                aria-label="Página inicial"
+                onclick="goHome()"
             >
 
-                <i class="bi bi-house-fill"></i>
+                <i class="bi bi-grid-1x2-fill"></i>
 
             </button>
 
 
-            <div class="sidebar-title">
+            <!-- TÍTULO -->
 
-                <h1>
+            <div>
+
+                <div class="brand-title">
                     Central Integrada
-                </h1>
+                </div>
 
-                <span>
+
+                <div class="brand-subtitle">
                     Sistemas e Ferramentas
-                </span>
+                </div>
 
             </div>
 
+
+            <!-- BOTÃO RECOLHER -->
 
             <button
                 class="collapse-button"
-                onclick="toggleSidebarCollapse()"
+                id="collapseButton"
                 title="Recolher menu"
+                aria-label="Recolher menu"
+                onclick="toggleSidebarCollapse()"
             >
 
-                <i
-                    id="collapseIcon"
-                    class="bi bi-chevron-left"
-                ></i>
+                <i class="bi bi-chevron-left"></i>
 
             </button>
+
 
         </div>
 
 
-        <div class="menu">
+        <!-- BOTÃO EXPANDIR -->
 
-            <div class="menu-title">
-                Sistemas
-            </div>
+        <button
+            class="expand-button"
+            id="expandButton"
+            title="Expandir menu"
+            aria-label="Expandir menu"
+            onclick="toggleSidebarCollapse()"
+        >
 
+            <i class="bi bi-chevron-right"></i>
 
-            <!-- =================================================
-                 1 - AGENDA DE TREINAMENTOS
-            ================================================== -->
-
-            <button
-                class="menu-item"
-                data-name="Agenda de Treinamentos"
-                data-url="https://jonatha-vanbro.github.io/Agenda-de-Treinamentos/"
-                data-icon="bi-mortarboard-fill"
-                onclick="openSystem(this)"
-                title="Agenda de Treinamentos"
-            >
-
-                <i class="bi bi-mortarboard-fill"></i>
-
-                <span>
-                    Agenda de Treinamentos
-                </span>
-
-            </button>
+        </button>
 
 
-            <!-- =================================================
-                 2 - AGENDA DE TAREFAS - ENGENHARIA
-            ================================================== -->
-
-            <button
-                class="menu-item"
-                data-name="Agenda de Tarefas - Engenharia"
-                data-url="https://jonatha-vanbro.github.io/Agenda-de-Tarefas-Engenharia-/"
-                data-icon="bi-kanban-fill"
-                onclick="openSystem(this)"
-                title="Agenda de Tarefas - Engenharia"
-            >
-
-                <i class="bi bi-kanban-fill"></i>
-
-                <span>
-                    Agenda de Tarefas - Engenharia
-                </span>
-
-            </button>
+    </div>
 
 
-            <!-- =================================================
-                 3 - DASHBOARD DE QUALIDADE
-            ================================================== -->
+    <!-- TÍTULO DO MENU -->
 
-            <button
-                class="menu-item"
-                data-name="Dashboard de Qualidade"
-                data-url="https://jonatha-vanbro.github.io/dashboard-qualidade/"
-                data-icon="bi-bar-chart-fill"
-                onclick="openSystem(this)"
-                title="Dashboard de Qualidade"
-            >
-
-                <i class="bi bi-bar-chart-fill"></i>
-
-                <span>
-                    Dashboard de Qualidade
-                </span>
-
-            </button>
+    <div class="menu-title">
+        Sistemas
+    </div>
 
 
-            <!-- =================================================
-                 4 - CONTROLE DE MATERIAIS - BOBINAGEM
-            ================================================== -->
+    <!-- =====================================
+         SISTEMAS
+    ====================================== -->
 
-            <button
-                class="menu-item"
-                data-name="Controle de Materiais - Bobinagem"
-                data-url="https://jonatha-vanbro.github.io/Controle-de-Materiais_Bobinagem/"
-                data-icon="bi-box-seam-fill"
-                onclick="openSystem(this)"
-                title="Controle de Materiais - Bobinagem"
-            >
-
-                <i class="bi bi-box-seam-fill"></i>
-
-                <span>
-                    Controle de Materiais - Bobinagem
-                </span>
-
-            </button>
+    <div class="menu">
 
 
-            <!-- =================================================
-                 5 - PROCEDIMENTOS DE TRABALHO
-            ================================================== -->
+        <!-- AGENDA DE TREINAMENTOS -->
 
-            <button
-                class="menu-item"
-                data-name="Procedimentos de Trabalho"
-                data-url="https://jonatha-vanbro.github.io/Procedimentos-de-Trabalho/"
-                data-icon="bi-file-earmark-text-fill"
-                onclick="openSystem(this)"
-                title="Procedimentos de Trabalho"
-            >
+        <button
+            class="menu-item"
+            data-name="Agenda de Treinamentos"
+            data-url="https://jonatha-vanbro.github.io/Agenda-de-Treinamentos/"
+            data-icon="bi-mortarboard-fill"
+            onclick="openSystem(this)"
+            title="Agenda de Treinamentos"
+        >
 
-                <i class="bi bi-file-earmark-text-fill"></i>
+            <i class="bi bi-mortarboard-fill"></i>
 
-                <span>
-                    Procedimentos de Trabalho
-                </span>
+            <span>
+                Agenda de Treinamentos
+            </span>
 
-            </button>
+        </button>
 
 
-            <!-- =================================================
-                 6 - CONTRATOS E LICITAÇÕES
-            ================================================== -->
+        <!-- AGENDA DE TAREFAS - ENGENHARIA -->
 
-            <button
-                class="menu-item"
-                data-name="Contratos e Licitações"
-                data-url="https://jonatha-vanbro.github.io/Controle-de-Contratos-e-Licita-es-/"
-                data-icon="bi-briefcase-fill"
-                onclick="openSystem(this)"
-                title="Contratos e Licitações"
-            >
+        <button
+            class="menu-item"
+            data-name="Agenda de Tarefas - Engenharia"
+            data-url="https://jonatha-vanbro.github.io/Agenda-de-Tarefas-Engenharia-/"
+            data-icon="bi-kanban-fill"
+            onclick="openSystem(this)"
+            title="Agenda de Tarefas - Engenharia"
+        >
 
-                <i class="bi bi-briefcase-fill"></i>
+            <i class="bi bi-kanban-fill"></i>
 
-                <span>
-                    Contratos e Licitações
-                </span>
+            <span>
+                Agenda de Tarefas - Engenharia
+            </span>
 
-            </button>
+        </button>
 
 
-            <!-- =================================================
-                 7 - CONTROLE DE PEDIDOS - AEGEA
-            ================================================== -->
+        <!-- DASHBOARD DE QUALIDADE -->
 
-            <button
-                class="menu-item"
-                data-name="Controle de Pedidos - AEGEA"
-                data-url="https://jonatha-vanbro.github.io/Controle-de-Pedidos---AEGEA/"
-                data-icon="bi-truck"
-                onclick="openSystem(this)"
-                title="Controle de Pedidos - AEGEA"
-            >
+        <button
+            class="menu-item"
+            data-name="Dashboard de Qualidade"
+            data-url="https://jonatha-vanbro.github.io/dashboard-qualidade/"
+            data-icon="bi-bar-chart-fill"
+            onclick="openSystem(this)"
+            title="Dashboard de Qualidade"
+        >
 
-                <i class="bi bi-truck"></i>
+            <i class="bi bi-bar-chart-fill"></i>
 
-                <span>
-                    Controle de Pedidos - AEGEA
-                </span>
+            <span>
+                Dashboard de Qualidade
+            </span>
 
-            </button>
-
-        </div>
+        </button>
 
 
-        <!-- =====================================================
-             FOOTER
-        ====================================================== -->
+        <!-- CONTROLE DE MATERIAIS - BOBINAGEM -->
 
-        <div class="sidebar-footer">
+        <button
+            class="menu-item"
+            data-name="Controle de Materiais - Bobinagem"
+            data-url="https://jonatha-vanbro.github.io/Controle-de-Materiais_Bobinagem/"
+            data-icon="bi-box-seam-fill"
+            onclick="openSystem(this)"
+            title="Controle de Materiais - Bobinagem"
+        >
 
-            Central Integrada<br>
+            <i class="bi bi-box-seam-fill"></i>
 
+            <span>
+                Controle de Materiais - Bobinagem
+            </span>
+
+        </button>
+
+
+        <!-- PROCEDIMENTOS DE TRABALHO -->
+
+        <button
+            class="menu-item"
+            data-name="Procedimentos de Trabalho"
+            data-url="https://jonatha-vanbro.github.io/Procedimentos-de-Trabalho/"
+            data-icon="bi-file-earmark-text-fill"
+            onclick="openSystem(this)"
+            title="Procedimentos de Trabalho"
+        >
+
+            <i class="bi bi-file-earmark-text-fill"></i>
+
+            <span>
+                Procedimentos de Trabalho
+            </span>
+
+        </button>
+
+
+        <!-- CONTRATOS E LICITAÇÕES -->
+
+        <button
+            class="menu-item"
+            data-name="Contratos e Licitações"
+            data-url="https://jonatha-vanbro.github.io/Controle-de-Contratos-e-Licita-es-/"
+            data-icon="bi-briefcase-fill"
+            onclick="openSystem(this)"
+            title="Contratos e Licitações"
+        >
+
+            <i class="bi bi-briefcase-fill"></i>
+
+            <span>
+                Contratos e Licitações
+            </span>
+
+        </button>
+
+
+        <!-- CONTROLE DE PEDIDOS - AEGEA -->
+
+        <button
+            class="menu-item"
+            data-name="Controle de Pedidos - AEGEA"
+            data-url="https://jonatha-vanbro.github.io/Controle-de-Pedidos---AEGEA/"
+            data-icon="bi-truck"
+            onclick="openSystem(this)"
+            title="Controle de Pedidos - AEGEA"
+        >
+
+            <i class="bi bi-truck"></i>
+
+            <span>
+                Controle de Pedidos - AEGEA
+            </span>
+
+        </button>
+
+
+    </div>
+
+
+    <!-- =====================================
+         RODAPÉ
+    ====================================== -->
+
+    <div class="sidebar-footer">
+
+        Central Integrada<br>
+
+        <span>
             Sistemas Internos - Bombas Vanbro Ltda
+        </span>
 
-        </div>
-
-    </aside>
-
-
-    <!-- =========================================================
-         OVERLAY MOBILE
-    ========================================================== -->
-
-    <div
-        id="sidebarOverlay"
-        class="sidebar-overlay"
-        onclick="toggleSidebar()"
-    ></div>
+    </div>
 
 
-    <!-- =========================================================
-         MAIN
-    ========================================================== -->
-
-    <main class="main">
+</aside>
 
 
-        <!-- =====================================================
-             TOPBAR
-        ====================================================== -->
+<!-- =====================================
+     ÁREA PRINCIPAL
+====================================== -->
 
-        <header class="topbar">
+<main class="main-content">
 
+
+    <!-- TOPBAR -->
+
+    <header class="topbar">
+
+
+        <div
+            class="current-system home-mode"
+            id="currentSystem"
+        >
+
+
+            <!-- MENU MOBILE -->
 
             <button
-                class="mobile-menu-button"
+                class="mobile-menu-btn"
                 onclick="toggleSidebar()"
-                title="Abrir menu"
             >
 
                 <i class="bi bi-list"></i>
@@ -1225,520 +1466,546 @@
             </button>
 
 
-            <div class="current-system">
+            <!-- ÍCONE -->
+
+            <i
+                id="currentIcon"
+                class="bi bi-grid-1x2-fill current-icon"
+            ></i>
 
 
-                <div
-                    class="current-system-icon"
-                    id="currentSystemIcon"
+            <!-- INFORMAÇÕES -->
+
+            <div class="current-info">
+
+                <span
+                    id="currentName"
+                    class="current-name"
                 >
-
-                    <i class="bi bi-house-fill"></i>
-
-                </div>
-
-
-                <div
-                    class="current-system-name"
-                    id="currentSystemName"
-                >
-
                     Central Integrada
+                </span>
 
-                </div>
+
+                <span
+                    id="currentDescription"
+                    class="current-description"
+                >
+                    Selecione uma ferramenta no menu lateral para começar
+                </span>
 
             </div>
 
 
-            <div class="topbar-actions">
+        </div>
 
 
-                <button
-                    class="topbar-button"
-                    onclick="reloadSystem()"
-                    title="Atualizar sistema"
+        <!-- BOTÕES DA TOPBAR -->
+
+        <div class="topbar-actions">
+
+
+            <!-- ATUALIZAR -->
+
+            <button
+                class="topbar-btn"
+                title="Atualizar sistema"
+                onclick="reloadSystem()"
+            >
+
+                <i class="bi bi-arrow-clockwise"></i>
+
+            </button>
+
+
+            <!-- NOVA ABA -->
+
+            <button
+                class="topbar-btn"
+                title="Abrir em nova aba"
+                onclick="openNewTab()"
+            >
+
+                <i class="bi bi-box-arrow-up-right"></i>
+
+            </button>
+
+
+        </div>
+
+
+    </header>
+
+
+    <!-- =====================================
+         ÁREA DO SISTEMA
+    ====================================== -->
+
+    <section class="content-area">
+
+
+        <div class="iframe-container">
+
+
+            <!-- TELA INICIAL -->
+
+            <div
+                id="welcomeScreen"
+                class="welcome-screen"
+            >
+
+
+                <!-- LOGO COMO MARCA D'ÁGUA -->
+
+                <img
+                    src="./logo.png"
+                    alt="Logo da empresa"
+                    class="welcome-logo"
                 >
 
-                    <i class="bi bi-arrow-clockwise"></i>
 
-                </button>
+                <div class="welcome-content"></div>
 
-
-                <button
-                    class="topbar-button"
-                    onclick="openNewTab()"
-                    title="Abrir em nova aba"
-                >
-
-                    <i class="bi bi-box-arrow-up-right"></i>
-
-                </button>
 
             </div>
 
-        </header>
+
+            <!-- LOADING -->
+
+            <div
+                id="loading"
+                class="loading"
+            >
 
 
-        <!-- =====================================================
-             CONTENT
-        ====================================================== -->
-
-        <section class="content">
+                <div class="loading-content">
 
 
-            <div class="iframe-container">
+                    <div
+                        class="spinner-border"
+                        role="status"
+                    ></div>
 
 
-                <!-- =================================================
-                     WELCOME
-                ================================================== -->
-
-                <div
-                    id="welcome"
-                    class="welcome"
-                >
-
-                    <div class="welcome-content">
-
-
-                        <img
-                            src="./logo.png"
-                            alt="Bombas Vanbro"
-                            class="welcome-logo"
-                        >
-
-
-                        <h2 class="welcome-title">
-
-                            Central Integrada
-
-                        </h2>
-
-
-                        <p class="welcome-text">
-
-                            Selecione um sistema no menu lateral
-                            para acessar as ferramentas da
-                            Bombas Vanbro.
-
-                        </p>
-
+                    <div>
+                        Carregando sistema...
                     </div>
 
-                </div>
-
-
-                <!-- =================================================
-                     IFRAME
-                ================================================== -->
-
-                <iframe
-                    id="systemFrame"
-                    title="Sistema"
-                    allow="fullscreen"
-                ></iframe>
-
-
-                <!-- =================================================
-                     LOADING
-                ================================================== -->
-
-                <div
-                    id="loading"
-                    class="loading"
-                >
-
-                    <div class="loading-content">
-
-
-                        <div class="loading-spinner"></div>
-
-
-                        <div class="loading-text">
-
-                            Carregando sistema...
-
-                        </div>
-
-                    </div>
 
                 </div>
+
 
             </div>
 
-        </section>
 
-    </main>
+            <!-- IFRAME -->
 
+            <iframe
+                id="systemFrame"
+                title="Sistema"
+                src="about:blank"
+            ></iframe>
 
-    <!-- =========================================================
-         JAVASCRIPT
-    ========================================================== -->
 
-    <script>
+        </div>
 
 
-        let currentUrl = "";
+    </section>
 
 
-        /* =========================================================
-           CONTROLE DE CACHE
-        ========================================================= */
+</main>
 
-        function comVersao(url) {
+</div>
 
-            const separador =
-                url.includes("?")
-                    ? "&"
-                    : "?";
+<script>
 
-            return `${url}${separador}v=${Date.now()}`;
-        }
+/* =====================================
+   SISTEMA ATUAL
+====================================== */
 
+let currentUrl = "";
 
-        /* =========================================================
-           ABRIR SISTEMA
-        ========================================================== */
 
-        function openSystem(button) {
+/* Acrescenta um parâmetro de versão para sempre
+   buscar a versão mais nova (evita cache do iframe) */
 
-            const url =
-                button.dataset.url;
+function comVersao(url) {
 
-            const name =
-                button.dataset.name;
+    return url +
+        (url.includes("?") ? "&" : "?") +
+        "v=" + Date.now();
 
-            const icon =
-                button.dataset.icon;
+}
 
 
-            if (!url) {
-                return;
-            }
+/* =====================================
+   ABRIR SISTEMA
+====================================== */
 
+function openSystem(button) {
 
-            currentUrl = url;
 
+    const url =
+        button.dataset.url;
 
-            /* -----------------------------------------
-               MENU ATIVO
-            ----------------------------------------- */
 
-            document
-                .querySelectorAll(".menu-item")
-                .forEach(item => {
+    const name =
+        button.dataset.name;
 
-                    item.classList.remove("active");
 
-                });
+    const icon =
+        button.dataset.icon;
 
 
-            button.classList.add("active");
+    if (!url) {
 
 
-            /* -----------------------------------------
-               ATUALIZA TOPBAR
-            ----------------------------------------- */
-
-            document
-                .getElementById("currentSystemName")
-                .textContent = name;
-
-
-            document
-                .getElementById("currentSystemIcon")
-                .innerHTML =
-                    `<i class="bi ${icon}"></i>`;
-
-
-            /* -----------------------------------------
-               ELEMENTOS
-            ----------------------------------------- */
-
-            const welcome =
-                document.getElementById("welcome");
-
-            const frame =
-                document.getElementById("systemFrame");
-
-            const loading =
-                document.getElementById("loading");
-
-
-            /* -----------------------------------------
-               MOSTRA LOADING
-            ----------------------------------------- */
-
-            welcome.style.display = "none";
-
-            loading.style.display = "flex";
-
-            frame.style.display = "none";
-
-
-            /* -----------------------------------------
-               CARREGA IFRAME
-            ----------------------------------------- */
-
-            frame.onload = function () {
-
-                loading.style.display = "none";
-
-                frame.style.display = "block";
-
-            };
-
-
-            frame.src =
-                comVersao(url);
-
-
-            /* -----------------------------------------
-               FECHA SIDEBAR NO MOBILE
-            ----------------------------------------- */
-
-            closeMobileSidebar();
-
-        }
-
-
-        /* =========================================================
-           VOLTAR PARA HOME
-        ========================================================== */
-
-        function goHome() {
-
-            currentUrl = "";
-
-
-            document
-                .querySelectorAll(".menu-item")
-                .forEach(item => {
-
-                    item.classList.remove("active");
-
-                });
-
-
-            document
-                .getElementById("currentSystemName")
-                .textContent =
-                    "Central Integrada";
-
-
-            document
-                .getElementById("currentSystemIcon")
-                .innerHTML =
-                    `<i class="bi bi-house-fill"></i>`;
-
-
-            const welcome =
-                document.getElementById("welcome");
-
-            const frame =
-                document.getElementById("systemFrame");
-
-            const loading =
-                document.getElementById("loading");
-
-
-            frame.src = "about:blank";
-
-            frame.style.display = "none";
-
-            loading.style.display = "none";
-
-            welcome.style.display = "flex";
-
-
-            closeMobileSidebar();
-
-        }
-
-
-        /* =========================================================
-           RECOLHER / EXPANDIR SIDEBAR
-        ========================================================== */
-
-        function toggleSidebarCollapse() {
-
-            const sidebar =
-                document.getElementById("sidebar");
-
-            const icon =
-                document.getElementById("collapseIcon");
-
-
-            sidebar.classList.toggle("collapsed");
-
-
-            if (
-                sidebar.classList.contains("collapsed")
-            ) {
-
-                icon.className =
-                    "bi bi-chevron-right";
-
-            } else {
-
-                icon.className =
-                    "bi bi-chevron-left";
-
-            }
-
-        }
-
-
-        /* =========================================================
-           RECARREGAR SISTEMA
-        ========================================================== */
-
-        function reloadSystem() {
-
-            if (!currentUrl) {
-                return;
-            }
-
-
-            const frame =
-                document.getElementById("systemFrame");
-
-            const loading =
-                document.getElementById("loading");
-
-
-            loading.style.display = "flex";
-
-
-            frame.style.display = "none";
-
-
-            frame.onload = function () {
-
-                loading.style.display = "none";
-
-                frame.style.display = "block";
-
-            };
-
-
-            frame.src =
-                comVersao(currentUrl);
-
-        }
-
-
-        /* =========================================================
-           ABRIR EM NOVA ABA
-        ========================================================== */
-
-        function openNewTab() {
-
-            if (!currentUrl) {
-                return;
-            }
-
-
-            window.open(
-                currentUrl,
-                "_blank",
-                "noopener,noreferrer"
-            );
-
-        }
-
-
-        /* =========================================================
-           SIDEBAR MOBILE
-        ========================================================== */
-
-        function toggleSidebar() {
-
-            const sidebar =
-                document.getElementById("sidebar");
-
-            const overlay =
-                document.getElementById("sidebarOverlay");
-
-
-            sidebar.classList.toggle("mobile-open");
-
-            overlay.classList.toggle(
-                "active"
-            );
-
-        }
-
-
-        /* =========================================================
-           FECHAR SIDEBAR MOBILE
-        ========================================================== */
-
-        function closeMobileSidebar() {
-
-            const sidebar =
-                document.getElementById("sidebar");
-
-            const overlay =
-                document.getElementById("sidebarOverlay");
-
-
-            sidebar.classList.remove(
-                "mobile-open"
-            );
-
-            overlay.classList.remove(
-                "active"
-            );
-
-        }
-
-
-        /* =========================================================
-           FECHAR MENU AO CLICAR FORA
-        ========================================================== */
-
-        document.addEventListener(
-            "click",
-            function(event) {
-
-                if (
-                    window.innerWidth > 900
-                ) {
-                    return;
-                }
-
-
-                const sidebar =
-                    document.getElementById(
-                        "sidebar"
-                    );
-
-                const menuButton =
-                    document.querySelector(
-                        ".mobile-menu-button"
-                    );
-
-
-                if (
-                    sidebar.classList.contains(
-                        "mobile-open"
-                    ) &&
-                    !sidebar.contains(event.target) &&
-                    !menuButton.contains(event.target)
-                ) {
-
-                    closeMobileSidebar();
-
-                }
-
-            }
+        alert(
+            'O sistema "' +
+            name +
+            '" ainda não possui um link configurado.'
         );
 
 
-    </script>
+        return;
 
+    }
+
+
+    currentUrl = url;
+
+
+    /* Remove seleção anterior */
+
+    document
+        .querySelectorAll(".menu-item")
+        .forEach(item => {
+
+            item.classList.remove("active");
+
+        });
+
+
+    /* Seleciona sistema */
+
+    button.classList.add("active");
+
+
+    /* Atualiza nome */
+
+    document
+        .getElementById("currentName")
+        .textContent = name;
+
+
+    /* Sai do modo inicial */
+
+    document
+        .getElementById("currentSystem")
+        .classList.remove("home-mode");
+
+
+    /* Atualiza ícone */
+
+    const currentIcon =
+        document.getElementById("currentIcon");
+
+
+    currentIcon.className =
+        "bi " +
+        icon +
+        " current-icon";
+
+
+    /* Esconde tela inicial */
+
+    document
+        .getElementById("welcomeScreen")
+        .style.display = "none";
+
+
+    /* Mostra carregamento */
+
+    document
+        .getElementById("loading")
+        .classList.add("active");
+
+
+    /* Carrega sistema */
+
+    const frame =
+        document.getElementById("systemFrame");
+
+
+    frame.src = comVersao(url);
+
+
+    frame.onload = function() {
+
+
+        document
+            .getElementById("loading")
+            .classList.remove("active");
+
+    };
+
+
+    /* Fecha menu mobile */
+
+    document
+        .getElementById("sidebar")
+        .classList.remove("open");
+
+}
+
+
+/* =====================================
+   VOLTAR PARA PÁGINA INICIAL
+====================================== */
+
+function goHome() {
+
+
+    currentUrl = "";
+
+
+    /* Remove seleção */
+
+    document
+        .querySelectorAll(".menu-item")
+        .forEach(item => {
+
+            item.classList.remove("active");
+
+        });
+
+
+    /* Nome */
+
+    document
+        .getElementById("currentName")
+        .textContent =
+            "Central Integrada";
+
+
+    /* Modo inicial */
+
+    document
+        .getElementById("currentSystem")
+        .classList.add("home-mode");
+
+
+    /* Ícone */
+
+    document
+        .getElementById("currentIcon")
+        .className =
+            "bi bi-grid-1x2-fill current-icon";
+
+
+    /* Limpa iframe */
+
+    document
+        .getElementById("systemFrame")
+        .src =
+            "about:blank";
+
+
+    /* Mostra tela inicial */
+
+    document
+        .getElementById("welcomeScreen")
+        .style.display =
+            "flex";
+
+
+    /* Esconde loading */
+
+    document
+        .getElementById("loading")
+        .classList.remove("active");
+
+
+    /* Fecha menu mobile */
+
+    document
+        .getElementById("sidebar")
+        .classList.remove("open");
+
+}
+
+
+/* =====================================
+   RECOLHER / EXPANDIR BARRA LATERAL
+====================================== */
+
+function toggleSidebarCollapse() {
+
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+
+    const isCollapsed =
+        sidebar.classList.contains("collapsed");
+
+
+    if (isCollapsed) {
+
+
+        /* EXPANDIR */
+
+        sidebar.classList.remove(
+            "collapsed"
+        );
+
+
+        document
+            .getElementById("collapseButton")
+            .title =
+                "Recolher menu";
+
+
+        document
+            .getElementById("collapseButton")
+            .setAttribute(
+                "aria-label",
+                "Recolher menu"
+            );
+
+
+    } else {
+
+
+        /* RECOLHER */
+
+        sidebar.classList.add(
+            "collapsed"
+        );
+
+
+        document
+            .getElementById("expandButton")
+            .title =
+                "Expandir menu";
+
+
+        document
+            .getElementById("expandButton")
+            .setAttribute(
+                "aria-label",
+                "Expandir menu"
+            );
+
+    }
+
+}
+
+
+/* =====================================
+   ATUALIZAR SISTEMA
+====================================== */
+
+function reloadSystem() {
+
+
+    if (!currentUrl) {
+
+        return;
+    }
+
+
+    const frame =
+        document.getElementById("systemFrame");
+
+
+    document
+        .getElementById("loading")
+        .classList.add("active");
+
+
+    frame.src =
+        comVersao(currentUrl);
+
+}
+
+
+/* =====================================
+   ABRIR EM NOVA ABA
+====================================== */
+
+function openNewTab() {
+
+
+    if (!currentUrl) {
+
+
+        alert(
+            "Selecione um sistema primeiro."
+        );
+
+
+        return;
+
+    }
+
+
+    window.open(
+        currentUrl,
+        "_blank"
+    );
+
+}
+
+
+/* =====================================
+   MENU MOBILE
+====================================== */
+
+function toggleSidebar() {
+
+
+    document
+        .getElementById("sidebar")
+        .classList.toggle("open");
+
+}
+
+
+/* =====================================
+   FECHAR MENU MOBILE AO CLICAR FORA
+====================================== */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+
+        const sidebar =
+            document.getElementById("sidebar");
+
+
+        const menuButton =
+            document.querySelector(
+                ".mobile-menu-btn"
+            );
+
+
+        if (
+            window.innerWidth <= 700 &&
+            sidebar.classList.contains("open") &&
+            !sidebar.contains(event.target) &&
+            !menuButton.contains(event.target)
+        ) {
+
+
+            sidebar.classList.remove("open");
+
+        }
+
+    }
+);
+
+</script>
 
 </body>
-
 </html>

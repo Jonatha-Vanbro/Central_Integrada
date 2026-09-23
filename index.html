@@ -5,274 +5,194 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Central Integrada</title>
 
+    <link rel="icon"
+          type="image/png"
+          href="./favicon.png">
 
-    <!-- FAVICON -->
-
-    <link
-        rel="icon"
-        type="image/png"
-        href="./favicon.png"
-    >
-
-    <link
-        rel="shortcut icon"
-        type="image/png"
-        href="./favicon.png"
-    >
-
-
-    <!-- BOOTSTRAP -->
-
+    <!-- Bootstrap -->
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
+        rel="stylesheet">
 
-
-    <!-- BOOTSTRAP ICONS -->
-
+    <!-- Bootstrap Icons -->
     <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    >
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet">
 
 
     <style>
-
-
-        /* =====================================
-           CONFIGURAÇÕES GERAIS
-        ====================================== */
 
         * {
             box-sizing: border-box;
         }
 
 
+        html,
         body {
+            width: 100%;
+            height: 100%;
             margin: 0;
+            padding: 0;
+        }
 
-            font-family:
-                Arial,
-                Helvetica,
-                sans-serif;
 
+        body {
+            font-family: Arial, Helvetica, sans-serif;
             background: #f1f4f8;
+            overflow: hidden;
+        }
+
+
+        /* =========================================================
+           SIDEBAR
+        ========================================================= */
+
+        .sidebar {
+
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 302px;
+            height: 100vh;
+
+            background: #1e2a4a;
+            color: #fff;
+
+            display: flex;
+            flex-direction: column;
+
+            z-index: 1000;
+
+            transition:
+                width .25s ease,
+                left .25s ease;
 
             overflow: hidden;
         }
 
 
-        /* =====================================
-           CONTAINER PRINCIPAL
-        ====================================== */
-
-        .app-container {
-
-            display: flex;
-
-            width: 100vw;
-
-            height: 100vh;
-        }
-
-
-        /* =====================================
-           BARRA LATERAL
-        ====================================== */
-
-        .sidebar {
-
-            width: 302px;
-
-            height: 100vh;
-
-            background: #1e2a4a;
-
-            color: white;
-
-            display: flex;
-
-            flex-direction: column;
-
-            flex-shrink: 0;
-
-            box-shadow:
-                3px 0 10px rgba(0, 0, 0, 0.12);
-
-            z-index: 10;
-
-            transition:
-                width 0.25s ease;
-        }
-
-
-        /* BARRA RECOLHIDA */
-
         .sidebar.collapsed {
-
             width: 76px;
         }
 
 
-        /* =====================================
-           CABEÇALHO DA BARRA
-        ====================================== */
+        /* =========================================================
+           SIDEBAR HEADER
+        ========================================================= */
 
         .sidebar-header {
 
-            padding: 18px 20px;
+            height: 82px;
 
-            border-bottom:
-                1px solid rgba(255, 255, 255, 0.15);
-
-            position: relative;
-
-            transition:
-                padding 0.25s ease;
-        }
-
-
-        .sidebar.collapsed .sidebar-header {
-
-            padding: 18px 10px;
-        }
-
-
-        /* =====================================
-           MARCA
-        ====================================== */
-
-        .brand {
+            padding: 0 18px;
 
             display: flex;
-
             align-items: center;
 
-            gap: 12px;
+            border-bottom:
+                1px solid rgba(255,255,255,.10);
+
+            flex-shrink: 0;
         }
 
-
-        /* =====================================
-           BOTÃO HOME
-        ====================================== */
 
         .home-button {
 
-            width: 45px;
-
-            height: 45px;
-
-            padding: 0;
+            width: 42px;
+            height: 42px;
 
             border: none;
-
-            background:
-                rgba(255, 255, 255, 0.15);
-
-            color: white;
-
             border-radius: 10px;
 
+            background: #1b4079;
+            color: #fff;
+
             display: flex;
-
             align-items: center;
-
             justify-content: center;
 
-            font-size: 22px;
+            font-size: 20px;
 
             cursor: pointer;
 
-            transition:
-                all 0.2s ease;
-
             flex-shrink: 0;
+
+            transition:
+                background .2s ease,
+                transform .2s ease;
         }
 
 
         .home-button:hover {
 
-            background: white;
+            background: #285895;
 
-            color: #1b4079;
-
-            transform: scale(1.04);
+            transform: translateY(-1px);
         }
 
 
-        .home-button:active {
+        .sidebar-title {
 
-            transform: scale(0.98);
+            margin-left: 12px;
+
+            min-width: 0;
+
+            flex: 1;
         }
 
 
-        /* =====================================
-           TÍTULO
-        ====================================== */
-
-        .brand-title {
-
-            font-size: 19px;
-
-            font-weight: 700;
+        .sidebar-title h1 {
 
             margin: 0;
 
+            font-size: 18px;
+            font-weight: 700;
+
+            line-height: 1.2;
+
             white-space: nowrap;
         }
 
 
-        .brand-subtitle {
+        .sidebar-title span {
+
+            display: block;
+
+            margin-top: 3px;
 
             font-size: 11px;
 
-            opacity: 0.75;
-
-            margin-top: 2px;
+            color: #aebbd4;
 
             white-space: nowrap;
         }
 
 
-        /* =====================================
-           BOTÃO RECOLHER
-        ====================================== */
-
         .collapse-button {
 
-            width: 30px;
-
-            height: 30px;
-
-            padding: 0;
+            width: 32px;
+            height: 32px;
 
             border: none;
-
-            background:
-                rgba(255, 255, 255, 0.10);
-
-            color:
-                rgba(255, 255, 255, 0.85);
-
             border-radius: 7px;
 
+            background: transparent;
+            color: #c8d2e5;
+
             display: flex;
-
             align-items: center;
-
             justify-content: center;
 
             cursor: pointer;
 
-            transition:
-                all 0.2s ease;
-
-            margin-left: auto;
+            font-size: 18px;
 
             flex-shrink: 0;
         }
@@ -280,203 +200,100 @@
 
         .collapse-button:hover {
 
-            background: white;
-
-            color: #1b4079;
+            background: rgba(255,255,255,.08);
+            color: #fff;
         }
 
 
-        /* =====================================
-           BOTÃO EXPANDIR
-        ====================================== */
+        /* =========================================================
+           MENU
+        ========================================================= */
 
-        .expand-button {
+        .menu {
 
-            display: none;
+            flex: 1;
 
-            width: 38px;
+            padding: 18px 12px;
 
-            height: 34px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
 
-            margin:
-                10px auto 0;
 
-            padding: 0;
+        .menu::-webkit-scrollbar {
+            width: 6px;
+        }
 
-            border: none;
+
+        .menu::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+
+        .menu::-webkit-scrollbar-thumb {
 
             background:
-                rgba(255, 255, 255, 0.10);
+                rgba(255,255,255,.15);
 
-            color:
-                rgba(255, 255, 255, 0.90);
-
-            border-radius: 8px;
-
-            align-items: center;
-
-            justify-content: center;
-
-            font-size: 16px;
-
-            cursor: pointer;
-
-            transition:
-                all 0.2s ease;
+            border-radius: 10px;
         }
 
-
-        .expand-button:hover {
-
-            background: white;
-
-            color: #1b4079;
-        }
-
-
-        /* =====================================
-           ESTADO RECOLHIDO
-        ====================================== */
-
-        .sidebar.collapsed .brand {
-
-            justify-content: center;
-        }
-
-
-        .sidebar.collapsed .brand > div {
-
-            display: none;
-        }
-
-
-        .sidebar.collapsed .home-button {
-
-            margin: 0 auto;
-        }
-
-
-        .sidebar.collapsed .collapse-button {
-
-            display: none;
-        }
-
-
-        .sidebar.collapsed .expand-button {
-
-            display: flex;
-        }
-
-
-        /* =====================================
-           TÍTULO DO MENU
-        ====================================== */
 
         .menu-title {
 
-            padding:
-                22px 20px 10px;
+            padding: 0 12px 10px;
 
             font-size: 11px;
 
             font-weight: 700;
 
+            color: #8f9db9;
+
             text-transform: uppercase;
 
-            letter-spacing: 1px;
-
-            opacity: 0.6;
+            letter-spacing: .08em;
 
             white-space: nowrap;
-
-            transition:
-                all 0.2s ease;
         }
 
-
-        /* MODO RECOLHIDO */
-
-        .sidebar.collapsed .menu-title {
-
-            text-align: center;
-
-            padding-left: 0;
-
-            padding-right: 0;
-
-            font-size: 0;
-        }
-
-
-        .sidebar.collapsed .menu-title::after {
-
-            content: "•";
-
-            font-size: 16px;
-
-            opacity: 0.6;
-        }
-
-
-        /* =====================================
-           MENU
-        ====================================== */
-
-        .menu {
-
-            padding:
-                0 12px;
-
-            overflow-y: auto;
-
-            overflow-x: hidden;
-        }
-
-
-        /* =====================================
-           ITEM DO MENU
-        ====================================== */
 
         .menu-item {
 
             width: 100%;
 
-            border: none;
-
-            background: transparent;
-
-            color:
-                rgba(255, 255, 255, 0.82);
-
-            padding:
-                13px 14px;
+            min-height: 48px;
 
             margin-bottom: 5px;
 
-            border-radius: 8px;
+            padding: 0 12px;
+
+            border: none;
+            border-radius: 9px;
+
+            background: transparent;
+
+            color: #dce4f2;
 
             display: flex;
-
             align-items: center;
-
-            gap: 12px;
 
             text-align: left;
 
             cursor: pointer;
 
             transition:
-                all 0.2s ease;
-
-            font-size: 14px;
+                background .2s ease,
+                color .2s ease;
         }
 
 
         .menu-item i {
 
-            font-size: 18px;
+            width: 26px;
 
-            width: 22px;
+            margin-right: 10px;
+
+            font-size: 18px;
 
             text-align: center;
 
@@ -486,215 +303,7 @@
 
         .menu-item span {
 
-            white-space: nowrap;
-
-            overflow: hidden;
-        }
-
-
-        .menu-item:hover {
-
-            background:
-                rgba(255, 255, 255, 0.10);
-
-            color: white;
-        }
-
-
-        .menu-item.active {
-
-            background: white;
-
-            color: #1b4079;
-
-            font-weight: 600;
-
-            box-shadow:
-                0 3px 8px rgba(0, 0, 0, 0.12);
-        }
-
-
-        /* =====================================
-           MENU RECOLHIDO
-        ====================================== */
-
-        .sidebar.collapsed .menu {
-
-            padding-left: 10px;
-
-            padding-right: 10px;
-        }
-
-
-        .sidebar.collapsed .menu-item {
-
-            justify-content: center;
-
-            padding:
-                13px 0;
-
-            gap: 0;
-        }
-
-
-        .sidebar.collapsed .menu-item span {
-
-            display: none;
-        }
-
-
-        .sidebar.collapsed .menu-item i {
-
-            width: auto;
-        }
-
-
-        /* =====================================
-           RODAPÉ
-        ====================================== */
-
-        .sidebar-footer {
-
-            margin-top: auto;
-
-            padding:
-                16px 20px;
-
-            border-top:
-                1px solid rgba(255, 255, 255, 0.15);
-
-            font-size: 11px;
-
-            opacity: 0.65;
-
-            text-align: center;
-
-            white-space: nowrap;
-
-            overflow: hidden;
-        }
-
-
-        .sidebar.collapsed .sidebar-footer {
-
-            padding:
-                16px 5px;
-
-            font-size: 0;
-        }
-
-
-        .sidebar.collapsed .sidebar-footer::before {
-
-            content: "CI";
-
-            font-size: 11px;
-
-            font-weight: 600;
-        }
-
-
-        /* =====================================
-           ÁREA PRINCIPAL
-        ====================================== */
-
-        .main-content {
-
-            flex: 1;
-
-            height: 100vh;
-
-            display: flex;
-
-            flex-direction: column;
-
-            min-width: 0;
-        }
-
-
-        /* =====================================
-           TOPBAR
-        ====================================== */
-
-        .topbar {
-
-            height: 68px;
-
-            background: white;
-
-            border-bottom:
-                1px solid #dee2e6;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            padding:
-                0 22px;
-
-            flex-shrink: 0;
-        }
-
-
-        .current-system {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 10px;
-
-            min-width: 0;
-        }
-
-
-        .current-icon {
-
-            color: #1b4079;
-
-            font-size: 20px;
-
-            flex-shrink: 0;
-        }
-
-
-        .current-info {
-
-            display: flex;
-
-            flex-direction: column;
-
-            justify-content: center;
-
-            min-width: 0;
-        }
-
-
-        .current-name {
-
-            font-size: 16px;
-
-            font-weight: 600;
-
-            color: #263238;
-
-            line-height: 1.2;
-        }
-
-
-        .current-description {
-
-            display: none;
-
-            font-size: 11px;
-
-            color: #7a828a;
-
-            margin-top: 3px;
-
-            line-height: 1.2;
+            font-size: 13px;
 
             white-space: nowrap;
 
@@ -704,148 +313,359 @@
         }
 
 
-        .home-mode .current-description {
+        .menu-item:hover {
 
-            display: block;
+            background: rgba(255,255,255,.08);
+            color: #fff;
         }
 
 
-        /* =====================================
-           BOTÕES TOPBAR
-        ====================================== */
+        .menu-item.active {
 
-        .topbar-actions {
+            background: #1b4079;
+            color: #fff;
+
+            box-shadow:
+                inset 3px 0 0 #72a7e8;
+        }
+
+
+        /* =========================================================
+           SIDEBAR COLLAPSED
+        ========================================================= */
+
+        .sidebar.collapsed .sidebar-title,
+        .sidebar.collapsed .collapse-button,
+        .sidebar.collapsed .menu-title,
+        .sidebar.collapsed .menu-item span {
+
+            display: none;
+        }
+
+
+        .sidebar.collapsed .sidebar-header {
+
+            padding: 0;
+
+            justify-content: center;
+        }
+
+
+        .sidebar.collapsed .menu {
+
+            padding:
+                18px 10px;
+        }
+
+
+        .sidebar.collapsed .menu-item {
+
+            justify-content: center;
+
+            padding: 0;
+        }
+
+
+        .sidebar.collapsed .menu-item i {
+
+            margin: 0;
+        }
+
+
+        /* =========================================================
+           SIDEBAR FOOTER
+        ========================================================= */
+
+        .sidebar-footer {
+
+            padding: 15px 18px;
+
+            border-top:
+                1px solid rgba(255,255,255,.10);
+
+            color: #8f9db9;
+
+            font-size: 10px;
+
+            line-height: 1.5;
+
+            flex-shrink: 0;
+
+            white-space: nowrap;
+        }
+
+
+        .sidebar.collapsed .sidebar-footer {
+
+            display: none;
+        }
+
+
+        /* =========================================================
+           MAIN
+        ========================================================= */
+
+        .main {
+
+            position: fixed;
+
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 302px;
 
             display: flex;
+            flex-direction: column;
 
-            gap: 8px;
+            transition:
+                left .25s ease;
+        }
+
+
+        .sidebar.collapsed ~ .main {
+
+            left: 76px;
+        }
+
+
+        /* =========================================================
+           TOPBAR
+        ========================================================= */
+
+        .topbar {
+
+            height: 64px;
+
+            background: #fff;
+
+            border-bottom:
+                1px solid #dce2ea;
+
+            display: flex;
+            align-items: center;
+
+            padding:
+                0 20px;
+
+            flex-shrink: 0;
+
+            box-shadow:
+                0 1px 3px rgba(0,0,0,.04);
+
+            z-index: 20;
+        }
+
+
+        .mobile-menu-button {
+
+            display: none;
+
+            width: 38px;
+            height: 38px;
+
+            margin-right: 12px;
+
+            border: none;
+            border-radius: 8px;
+
+            background: #1e2a4a;
+            color: #fff;
+
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+
+            font-size: 19px;
+        }
+
+
+        .current-system {
+
+            flex: 1;
+
+            min-width: 0;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .current-system-icon {
+
+            width: 36px;
+            height: 36px;
+
+            border-radius: 8px;
+
+            background: #eaf0f8;
+
+            color: #1b4079;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 18px;
 
             flex-shrink: 0;
         }
 
 
-        .topbar-btn {
+        .current-system-name {
 
-            border:
-                1px solid #d9dee5;
+            font-size: 15px;
 
-            background: white;
+            font-weight: 600;
 
-            color: #495057;
+            color: #27344d;
 
-            border-radius: 7px;
+            white-space: nowrap;
 
-            padding:
-                7px 11px;
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+        }
+
+
+        .topbar-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+        }
+
+
+        .topbar-button {
+
+            width: 36px;
+            height: 36px;
+
+            border: 1px solid #d9e0e9;
+
+            border-radius: 8px;
+
+            background: #fff;
+
+            color: #53627a;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
             cursor: pointer;
 
-            transition: 0.2s;
+            font-size: 17px;
+
+            transition:
+                background .2s ease,
+                color .2s ease,
+                border-color .2s ease;
         }
 
 
-        .topbar-btn:hover {
+        .topbar-button:hover {
 
-            background: #f1f4f8;
+            background: #1e2a4a;
+            border-color: #1e2a4a;
 
-            color: #1b4079;
+            color: #fff;
         }
 
 
-        /* =====================================
-           ÁREA DO CONTEÚDO
-        ====================================== */
+        /* =========================================================
+           CONTENT
+        ========================================================= */
 
-        .content-area {
+        .content {
+
+            position: relative;
 
             flex: 1;
 
-            padding: 12px;
-
             min-height: 0;
+
+            padding: 20px;
+
+            overflow: hidden;
         }
 
 
         .iframe-container {
 
-            width: 100%;
+            position: relative;
 
+            width: 100%;
             height: 100%;
 
-            background: white;
+            background: #fff;
 
-            border-radius: 8px;
+            border-radius: 10px;
 
             overflow: hidden;
 
             box-shadow:
-                0 2px 8px rgba(0, 0, 0, 0.07);
-
-            position: relative;
+                0 2px 8px rgba(20,35,60,.08);
         }
 
 
         #systemFrame {
 
             width: 100%;
-
             height: 100%;
 
             border: none;
 
-            display: block;
+            display: none;
+
+            background: #fff;
         }
 
 
-        /* =====================================
-           TELA INICIAL
-        ====================================== */
+        /* =========================================================
+           WELCOME
+        ========================================================= */
 
-        .welcome-screen {
+        .welcome {
 
             position: absolute;
 
             inset: 0;
 
-            background: white;
-
             display: flex;
 
             align-items: center;
-
             justify-content: center;
 
-            text-align: center;
+            background: #fff;
 
             overflow: hidden;
-
-            z-index: 2;
         }
 
 
-        .welcome-logo {
+        .welcome::before {
+
+            content: "";
 
             position: absolute;
 
-            left: 50%;
+            width: 500px;
+            height: 500px;
 
-            top: 50%;
+            border-radius: 50%;
 
-            transform:
-                translate(-50%, -50%);
-
-            width:
-                min(65%, 520px);
-
-            max-height: 65%;
-
-            object-fit: contain;
-
-            opacity: 0.09;
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(30,42,74,.06),
+                    transparent 70%
+                );
 
             pointer-events: none;
-
-            user-select: none;
         }
 
 
@@ -855,13 +675,53 @@
 
             z-index: 2;
 
-            pointer-events: none;
+            text-align: center;
+
+            max-width: 600px;
+
+            padding: 30px;
         }
 
 
-        /* =====================================
+        .welcome-logo {
+
+            width: 180px;
+
+            max-width: 60vw;
+
+            margin-bottom: 25px;
+
+            opacity: .95;
+        }
+
+
+        .welcome-title {
+
+            margin: 0;
+
+            color: #1e2a4a;
+
+            font-size: 28px;
+
+            font-weight: 700;
+        }
+
+
+        .welcome-text {
+
+            margin-top: 10px;
+
+            color: #718096;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================================================
            LOADING
-        ====================================== */
+        ========================================================= */
 
         .loading {
 
@@ -869,22 +729,15 @@
 
             inset: 0;
 
-            background:
-                rgba(255, 255, 255, 0.90);
-
             display: none;
 
             align-items: center;
-
             justify-content: center;
 
-            z-index: 5;
-        }
+            background:
+                rgba(255,255,255,.88);
 
-
-        .loading.active {
-
-            display: flex;
+            z-index: 10;
         }
 
 
@@ -892,282 +745,212 @@
 
             text-align: center;
 
-            color: #1b4079;
+            color: #1e2a4a;
         }
 
 
-        .loading-content .spinner-border {
+        .loading-spinner {
 
-            width: 35px;
+            width: 36px;
+            height: 36px;
 
-            height: 35px;
+            margin: 0 auto 12px;
 
-            margin-bottom: 12px;
+            border:
+                3px solid #dbe3ef;
+
+            border-top-color:
+                #1b4079;
+
+            border-radius: 50%;
+
+            animation:
+                spin .8s linear infinite;
         }
 
 
-        .loading-content div {
+        .loading-text {
 
             font-size: 13px;
+
+            color: #65748b;
         }
 
 
-        /* =====================================
-           BOTÃO MENU MOBILE
-        ====================================== */
+        @keyframes spin {
 
-        .mobile-menu-btn {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+
+        /* =========================================================
+           MOBILE OVERLAY
+        ========================================================= */
+
+        .sidebar-overlay {
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(0,0,0,.45);
+
+            z-index: 999;
 
             display: none;
-
-            border: none;
-
-            background: transparent;
-
-            font-size: 22px;
-
-            color: #1b4079;
-
-            margin-right: 10px;
         }
 
 
-        /* =====================================
-           RESPONSIVIDADE
-        ====================================== */
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
 
         @media (max-width: 900px) {
 
             .sidebar {
 
-                width: 230px;
-            }
-
-
-            .sidebar.collapsed {
-
-                width: 76px;
-            }
-
-
-            .brand-title {
-
-                font-size: 16px;
-            }
-
-
-            .menu-item {
-
-                font-size: 13px;
-            }
-
-        }
-
-
-        /* =====================================
-           CELULAR
-        ====================================== */
-
-        @media (max-width: 700px) {
-
-            body {
-
-                overflow: auto;
-            }
-
-
-            .app-container {
-
-                height: auto;
-
-                min-height: 100vh;
-            }
-
-
-            .sidebar {
-
-                position: fixed;
+                width: 280px;
 
                 left: -280px;
 
-                top: 0;
-
-                width: 280px;
-
-                transition:
-                    left 0.3s ease;
-
-                z-index: 1000;
+                box-shadow:
+                    5px 0 20px rgba(0,0,0,.15);
             }
 
 
-            /* No celular a barra não fica estreita */
-
-            .sidebar.collapsed {
-
-                width: 280px;
-            }
-
-
-            .sidebar.open {
+            .sidebar.mobile-open {
 
                 left: 0;
             }
 
 
-            /* Restaura aparência normal */
+            .sidebar.collapsed {
 
-            .sidebar.collapsed .sidebar-header {
-
-                padding:
-                    18px 20px;
+                width: 280px;
             }
 
 
-            .sidebar.collapsed .brand {
-
-                justify-content: flex-start;
-            }
-
-
-            .sidebar.collapsed .brand > div {
+            .sidebar.collapsed .sidebar-title,
+            .sidebar.collapsed .collapse-button,
+            .sidebar.collapsed .menu-title,
+            .sidebar.collapsed .menu-item span {
 
                 display: block;
             }
 
 
-            .sidebar.collapsed .home-button {
+            .sidebar.collapsed .sidebar-header {
 
-                margin: 0;
-            }
+                padding: 0 18px;
 
-
-            .sidebar.collapsed .collapse-button {
-
-                display: flex;
-            }
-
-
-            .sidebar.collapsed .expand-button {
-
-                display: none;
-            }
-
-
-            .sidebar.collapsed .menu-title {
-
-                text-align: left;
-
-                padding-left: 20px;
-
-                padding-right: 20px;
-
-                font-size: 11px;
-            }
-
-
-            .sidebar.collapsed .menu-title::after {
-
-                display: none;
+                justify-content: initial;
             }
 
 
             .sidebar.collapsed .menu {
 
-                padding-left: 12px;
-
-                padding-right: 12px;
+                padding: 18px 12px;
             }
 
 
             .sidebar.collapsed .menu-item {
 
-                justify-content: flex-start;
+                justify-content: initial;
 
-                padding:
-                    13px 14px;
-
-                gap: 12px;
-            }
-
-
-            .sidebar.collapsed .menu-item span {
-
-                display: inline;
+                padding: 0 12px;
             }
 
 
             .sidebar.collapsed .menu-item i {
 
-                width: 22px;
+                margin-right: 10px;
             }
 
 
             .sidebar.collapsed .sidebar-footer {
 
-                padding:
-                    16px 20px;
-
-                font-size: 11px;
-            }
-
-
-            .sidebar.collapsed .sidebar-footer::before {
-
-                display: none;
-            }
-
-
-            .main-content {
-
-                width: 100%;
-
-                height: 100vh;
-            }
-
-
-            .mobile-menu-btn {
-
                 display: block;
             }
 
 
-            .current-name {
+            .main,
+            .sidebar.collapsed ~ .main {
 
-                font-size: 14px;
+                left: 0;
             }
 
 
-            .current-description {
+            .mobile-menu-button {
 
-                font-size: 10px;
-
-                max-width: 230px;
+                display: flex;
             }
 
+
+            .sidebar-overlay.active {
+
+                display: block;
+            }
+        }
+
+
+        @media (max-width: 576px) {
 
             .topbar {
 
-                padding:
-                    0 12px;
+                height: 58px;
+
+                padding: 0 12px;
             }
 
 
-            .content-area {
+            .content {
 
-                padding: 7px;
+                padding: 10px;
+            }
+
+
+            .current-system-name {
+
+                font-size: 13px;
+            }
+
+
+            .current-system-icon {
+
+                width: 32px;
+                height: 32px;
+
+                font-size: 16px;
+            }
+
+
+            .topbar-button {
+
+                width: 34px;
+                height: 34px;
+            }
+
+
+            .welcome-title {
+
+                font-size: 23px;
+            }
+
+
+            .welcome-text {
+
+                font-size: 13px;
             }
 
 
             .welcome-logo {
 
-                width: 75%;
-
-                opacity: 0.08;
+                width: 150px;
             }
-
         }
-
 
     </style>
 
@@ -1177,108 +960,67 @@
 <body>
 
 
-<div class="app-container">
-
-
-    <!-- =====================================
-         MENU LATERAL
-    ====================================== -->
+    <!-- =========================================================
+         SIDEBAR
+    ========================================================== -->
 
     <aside
-        class="sidebar"
         id="sidebar"
+        class="sidebar"
     >
-
-
-        <!-- CABEÇALHO -->
 
         <div class="sidebar-header">
 
-
-            <div class="brand">
-
-
-                <!-- BOTÃO HOME -->
-
-                <button
-                    class="home-button"
-                    title="Página inicial"
-                    aria-label="Página inicial"
-                    onclick="goHome()"
-                >
-
-                    <i class="bi bi-grid-1x2-fill"></i>
-
-                </button>
-
-
-                <!-- TÍTULO -->
-
-                <div>
-
-                    <div class="brand-title">
-                        Central Integrada
-                    </div>
-
-
-                    <div class="brand-subtitle">
-                        Sistemas e Ferramentas
-                    </div>
-
-                </div>
-
-
-                <!-- BOTÃO RECOLHER -->
-
-                <button
-                    class="collapse-button"
-                    id="collapseButton"
-                    title="Recolher menu"
-                    aria-label="Recolher menu"
-                    onclick="toggleSidebarCollapse()"
-                >
-
-                    <i class="bi bi-chevron-left"></i>
-
-                </button>
-
-
-            </div>
-
-
-            <!-- BOTÃO EXPANDIR -->
-
             <button
-                class="expand-button"
-                id="expandButton"
-                title="Expandir menu"
-                aria-label="Expandir menu"
-                onclick="toggleSidebarCollapse()"
+                class="home-button"
+                onclick="goHome()"
+                title="Página inicial"
             >
 
-                <i class="bi bi-chevron-right"></i>
+                <i class="bi bi-house-fill"></i>
 
             </button>
 
 
+            <div class="sidebar-title">
+
+                <h1>
+                    Central Integrada
+                </h1>
+
+                <span>
+                    Sistemas e Ferramentas
+                </span>
+
+            </div>
+
+
+            <button
+                class="collapse-button"
+                onclick="toggleSidebarCollapse()"
+                title="Recolher menu"
+            >
+
+                <i
+                    id="collapseIcon"
+                    class="bi bi-chevron-left"
+                ></i>
+
+            </button>
+
         </div>
 
-
-        <!-- TÍTULO DO MENU -->
-
-        <div class="menu-title">
-            Sistemas
-        </div>
-
-
-        <!-- =====================================
-             SISTEMAS
-        ====================================== -->
 
         <div class="menu">
 
+            <div class="menu-title">
+                Sistemas
+            </div>
 
-            <!-- AGENDA DE TREINAMENTOS -->
+
+            <!-- =================================================
+                 1 - AGENDA DE TREINAMENTOS
+            ================================================== -->
 
             <button
                 class="menu-item"
@@ -1298,7 +1040,9 @@
             </button>
 
 
-            <!-- AGENDA DE TAREFAS - ENGENHARIA -->
+            <!-- =================================================
+                 2 - AGENDA DE TAREFAS - ENGENHARIA
+            ================================================== -->
 
             <button
                 class="menu-item"
@@ -1318,7 +1062,9 @@
             </button>
 
 
-            <!-- DASHBOARD DE QUALIDADE -->
+            <!-- =================================================
+                 3 - DASHBOARD DE QUALIDADE
+            ================================================== -->
 
             <button
                 class="menu-item"
@@ -1338,7 +1084,9 @@
             </button>
 
 
-            <!-- CONTROLE DE MATERIAIS - BOBINAGEM -->
+            <!-- =================================================
+                 4 - CONTROLE DE MATERIAIS - BOBINAGEM
+            ================================================== -->
 
             <button
                 class="menu-item"
@@ -1358,7 +1106,9 @@
             </button>
 
 
-            <!-- PROCEDIMENTOS DE TRABALHO -->
+            <!-- =================================================
+                 5 - PROCEDIMENTOS DE TRABALHO
+            ================================================== -->
 
             <button
                 class="menu-item"
@@ -1378,7 +1128,9 @@
             </button>
 
 
-            <!-- CONTRATOS E LICITAÇÕES -->
+            <!-- =================================================
+                 6 - CONTRATOS E LICITAÇÕES
+            ================================================== -->
 
             <button
                 class="menu-item"
@@ -1398,101 +1150,113 @@
             </button>
 
 
+            <!-- =================================================
+                 7 - CONTROLE DE PEDIDOS - AEGEA
+            ================================================== -->
+
+            <button
+                class="menu-item"
+                data-name="Controle de Pedidos - AEGEA"
+                data-url="https://jonatha-vanbro.github.io/Controle-de-Pedidos---AEGEA/"
+                data-icon="bi-truck"
+                onclick="openSystem(this)"
+                title="Controle de Pedidos - AEGEA"
+            >
+
+                <i class="bi bi-truck"></i>
+
+                <span>
+                    Controle de Pedidos - AEGEA
+                </span>
+
+            </button>
+
         </div>
 
 
-        <!-- =====================================
-             RODAPÉ
-        ====================================== -->
+        <!-- =====================================================
+             FOOTER
+        ====================================================== -->
 
         <div class="sidebar-footer">
 
             Central Integrada<br>
 
-            <span>
-                Sistemas Internos - Bombas Vanbro Ltda
-            </span>
+            Sistemas Internos - Bombas Vanbro Ltda
 
         </div>
-
 
     </aside>
 
 
-    <!-- =====================================
-         ÁREA PRINCIPAL
-    ====================================== -->
+    <!-- =========================================================
+         OVERLAY MOBILE
+    ========================================================== -->
 
-    <main class="main-content">
+    <div
+        id="sidebarOverlay"
+        class="sidebar-overlay"
+        onclick="toggleSidebar()"
+    ></div>
 
 
-        <!-- TOPBAR -->
+    <!-- =========================================================
+         MAIN
+    ========================================================== -->
+
+    <main class="main">
+
+
+        <!-- =====================================================
+             TOPBAR
+        ====================================================== -->
 
         <header class="topbar">
 
 
-            <div
-                class="current-system home-mode"
-                id="currentSystem"
+            <button
+                class="mobile-menu-button"
+                onclick="toggleSidebar()"
+                title="Abrir menu"
             >
 
+                <i class="bi bi-list"></i>
 
-                <!-- MENU MOBILE -->
+            </button>
 
-                <button
-                    class="mobile-menu-btn"
-                    onclick="toggleSidebar()"
+
+            <div class="current-system">
+
+
+                <div
+                    class="current-system-icon"
+                    id="currentSystemIcon"
                 >
 
-                    <i class="bi bi-list"></i>
-
-                </button>
-
-
-                <!-- ÍCONE -->
-
-                <i
-                    id="currentIcon"
-                    class="bi bi-grid-1x2-fill current-icon"
-                ></i>
-
-
-                <!-- INFORMAÇÕES -->
-
-                <div class="current-info">
-
-                    <span
-                        id="currentName"
-                        class="current-name"
-                    >
-                        Central Integrada
-                    </span>
-
-
-                    <span
-                        id="currentDescription"
-                        class="current-description"
-                    >
-                        Selecione uma ferramenta no menu lateral para começar
-                    </span>
+                    <i class="bi bi-house-fill"></i>
 
                 </div>
 
 
+                <div
+                    class="current-system-name"
+                    id="currentSystemName"
+                >
+
+                    Central Integrada
+
+                </div>
+
             </div>
 
-
-            <!-- BOTÕES DA TOPBAR -->
 
             <div class="topbar-actions">
 
 
-                <!-- ATUALIZAR -->
-
                 <button
-                    class="topbar-btn"
-                    title="Atualizar sistema"
+                    class="topbar-button"
                     onclick="reloadSystem()"
+                    title="Atualizar sistema"
                 >
 
                     <i class="bi bi-arrow-clockwise"></i>
@@ -1500,499 +1264,479 @@
                 </button>
 
 
-                <!-- NOVA ABA -->
-
                 <button
-                    class="topbar-btn"
-                    title="Abrir em nova aba"
+                    class="topbar-button"
                     onclick="openNewTab()"
+                    title="Abrir em nova aba"
                 >
 
                     <i class="bi bi-box-arrow-up-right"></i>
 
                 </button>
 
-
             </div>
-
 
         </header>
 
 
-        <!-- =====================================
-             ÁREA DO SISTEMA
-        ====================================== -->
+        <!-- =====================================================
+             CONTENT
+        ====================================================== -->
 
-        <section class="content-area">
+        <section class="content">
 
 
             <div class="iframe-container">
 
 
-                <!-- TELA INICIAL -->
+                <!-- =================================================
+                     WELCOME
+                ================================================== -->
 
                 <div
-                    id="welcomeScreen"
-                    class="welcome-screen"
+                    id="welcome"
+                    class="welcome"
                 >
 
-
-                    <!-- LOGO COMO MARCA D'ÁGUA -->
-
-                    <img
-                        src="./logo.png"
-                        alt="Logo da empresa"
-                        class="welcome-logo"
-                    >
+                    <div class="welcome-content">
 
 
-                    <div class="welcome-content"></div>
+                        <img
+                            src="./logo.png"
+                            alt="Bombas Vanbro"
+                            class="welcome-logo"
+                        >
 
+
+                        <h2 class="welcome-title">
+
+                            Central Integrada
+
+                        </h2>
+
+
+                        <p class="welcome-text">
+
+                            Selecione um sistema no menu lateral
+                            para acessar as ferramentas da
+                            Bombas Vanbro.
+
+                        </p>
+
+                    </div>
 
                 </div>
 
 
-                <!-- LOADING -->
+                <!-- =================================================
+                     IFRAME
+                ================================================== -->
+
+                <iframe
+                    id="systemFrame"
+                    title="Sistema"
+                    allow="fullscreen"
+                ></iframe>
+
+
+                <!-- =================================================
+                     LOADING
+                ================================================== -->
 
                 <div
                     id="loading"
                     class="loading"
                 >
 
-
                     <div class="loading-content">
 
 
-                        <div
-                            class="spinner-border"
-                            role="status"
-                        ></div>
+                        <div class="loading-spinner"></div>
 
 
-                        <div>
+                        <div class="loading-text">
+
                             Carregando sistema...
-                        </div>
 
+                        </div>
 
                     </div>
 
-
                 </div>
-
-
-                <!-- IFRAME -->
-
-                <iframe
-                    id="systemFrame"
-                    title="Sistema"
-                    src="about:blank"
-                ></iframe>
-
 
             </div>
 
-
         </section>
-
 
     </main>
 
 
-</div>
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
+
+    <script>
 
 
-<script>
+        let currentUrl = "";
 
 
-    /* =====================================
-       SISTEMA ATUAL
-    ====================================== */
+        /* =========================================================
+           CONTROLE DE CACHE
+        ========================================================= */
 
-    let currentUrl = "";
+        function comVersao(url) {
 
+            const separador =
+                url.includes("?")
+                    ? "&"
+                    : "?";
 
-    /* Acrescenta um parâmetro de versão para sempre
-       buscar a versão mais nova (evita cache do iframe) */
-
-    function comVersao(url) {
-
-        return url +
-            (url.includes("?") ? "&" : "?") +
-            "v=" + Date.now();
-
-    }
+            return `${url}${separador}v=${Date.now()}`;
+        }
 
 
-    /* =====================================
-       ABRIR SISTEMA
-    ====================================== */
+        /* =========================================================
+           ABRIR SISTEMA
+        ========================================================== */
 
-    function openSystem(button) {
+        function openSystem(button) {
 
+            const url =
+                button.dataset.url;
 
-        const url =
-            button.dataset.url;
+            const name =
+                button.dataset.name;
 
-
-        const name =
-            button.dataset.name;
-
-
-        const icon =
-            button.dataset.icon;
+            const icon =
+                button.dataset.icon;
 
 
-        if (!url) {
+            if (!url) {
+                return;
+            }
 
 
-            alert(
-                'O sistema "' +
-                name +
-                '" ainda não possui um link configurado.'
-            );
+            currentUrl = url;
 
 
-            return;
+            /* -----------------------------------------
+               MENU ATIVO
+            ----------------------------------------- */
+
+            document
+                .querySelectorAll(".menu-item")
+                .forEach(item => {
+
+                    item.classList.remove("active");
+
+                });
+
+
+            button.classList.add("active");
+
+
+            /* -----------------------------------------
+               ATUALIZA TOPBAR
+            ----------------------------------------- */
+
+            document
+                .getElementById("currentSystemName")
+                .textContent = name;
+
+
+            document
+                .getElementById("currentSystemIcon")
+                .innerHTML =
+                    `<i class="bi ${icon}"></i>`;
+
+
+            /* -----------------------------------------
+               ELEMENTOS
+            ----------------------------------------- */
+
+            const welcome =
+                document.getElementById("welcome");
+
+            const frame =
+                document.getElementById("systemFrame");
+
+            const loading =
+                document.getElementById("loading");
+
+
+            /* -----------------------------------------
+               MOSTRA LOADING
+            ----------------------------------------- */
+
+            welcome.style.display = "none";
+
+            loading.style.display = "flex";
+
+            frame.style.display = "none";
+
+
+            /* -----------------------------------------
+               CARREGA IFRAME
+            ----------------------------------------- */
+
+            frame.onload = function () {
+
+                loading.style.display = "none";
+
+                frame.style.display = "block";
+
+            };
+
+
+            frame.src =
+                comVersao(url);
+
+
+            /* -----------------------------------------
+               FECHA SIDEBAR NO MOBILE
+            ----------------------------------------- */
+
+            closeMobileSidebar();
 
         }
 
 
-        currentUrl = url;
+        /* =========================================================
+           VOLTAR PARA HOME
+        ========================================================== */
 
+        function goHome() {
 
-        /* Remove seleção anterior */
-
-        document
-            .querySelectorAll(".menu-item")
-            .forEach(item => {
-
-                item.classList.remove("active");
-
-            });
-
-
-        /* Seleciona sistema */
-
-        button.classList.add("active");
-
-
-        /* Atualiza nome */
-
-        document
-            .getElementById("currentName")
-            .textContent = name;
-
-
-        /* Sai do modo inicial */
-
-        document
-            .getElementById("currentSystem")
-            .classList.remove("home-mode");
-
-
-        /* Atualiza ícone */
-
-        const currentIcon =
-            document.getElementById("currentIcon");
-
-
-        currentIcon.className =
-            "bi " +
-            icon +
-            " current-icon";
-
-
-        /* Esconde tela inicial */
-
-        document
-            .getElementById("welcomeScreen")
-            .style.display = "none";
-
-
-        /* Mostra carregamento */
-
-        document
-            .getElementById("loading")
-            .classList.add("active");
-
-
-        /* Carrega sistema */
-
-        const frame =
-            document.getElementById("systemFrame");
-
-
-        frame.src = comVersao(url);
-
-
-        frame.onload = function() {
+            currentUrl = "";
 
 
             document
-                .getElementById("loading")
-                .classList.remove("active");
+                .querySelectorAll(".menu-item")
+                .forEach(item => {
 
-        };
+                    item.classList.remove("active");
 
-
-        /* Fecha menu mobile */
-
-        document
-            .getElementById("sidebar")
-            .classList.remove("open");
-
-    }
-
-
-    /* =====================================
-       VOLTAR PARA PÁGINA INICIAL
-    ====================================== */
-
-    function goHome() {
-
-
-        currentUrl = "";
-
-
-        /* Remove seleção */
-
-        document
-            .querySelectorAll(".menu-item")
-            .forEach(item => {
-
-                item.classList.remove("active");
-
-            });
-
-
-        /* Nome */
-
-        document
-            .getElementById("currentName")
-            .textContent =
-                "Central Integrada";
-
-
-        /* Modo inicial */
-
-        document
-            .getElementById("currentSystem")
-            .classList.add("home-mode");
-
-
-        /* Ícone */
-
-        document
-            .getElementById("currentIcon")
-            .className =
-                "bi bi-grid-1x2-fill current-icon";
-
-
-        /* Limpa iframe */
-
-        document
-            .getElementById("systemFrame")
-            .src =
-                "about:blank";
-
-
-        /* Mostra tela inicial */
-
-        document
-            .getElementById("welcomeScreen")
-            .style.display =
-                "flex";
-
-
-        /* Esconde loading */
-
-        document
-            .getElementById("loading")
-            .classList.remove("active");
-
-
-        /* Fecha menu mobile */
-
-        document
-            .getElementById("sidebar")
-            .classList.remove("open");
-
-    }
-
-
-    /* =====================================
-       RECOLHER / EXPANDIR BARRA LATERAL
-    ====================================== */
-
-    function toggleSidebarCollapse() {
-
-
-        const sidebar =
-            document.getElementById("sidebar");
-
-
-        const isCollapsed =
-            sidebar.classList.contains("collapsed");
-
-
-        if (isCollapsed) {
-
-
-            /* EXPANDIR */
-
-            sidebar.classList.remove(
-                "collapsed"
-            );
+                });
 
 
             document
-                .getElementById("collapseButton")
-                .title =
-                    "Recolher menu";
+                .getElementById("currentSystemName")
+                .textContent =
+                    "Central Integrada";
 
 
             document
-                .getElementById("collapseButton")
-                .setAttribute(
-                    "aria-label",
-                    "Recolher menu"
-                );
+                .getElementById("currentSystemIcon")
+                .innerHTML =
+                    `<i class="bi bi-house-fill"></i>`;
 
 
-        } else {
+            const welcome =
+                document.getElementById("welcome");
+
+            const frame =
+                document.getElementById("systemFrame");
+
+            const loading =
+                document.getElementById("loading");
 
 
-            /* RECOLHER */
+            frame.src = "about:blank";
 
-            sidebar.classList.add(
-                "collapsed"
-            );
+            frame.style.display = "none";
 
+            loading.style.display = "none";
 
-            document
-                .getElementById("expandButton")
-                .title =
-                    "Expandir menu";
+            welcome.style.display = "flex";
 
 
-            document
-                .getElementById("expandButton")
-                .setAttribute(
-                    "aria-label",
-                    "Expandir menu"
-                );
-
-        }
-
-    }
-
-
-    /* =====================================
-       ATUALIZAR SISTEMA
-    ====================================== */
-
-    function reloadSystem() {
-
-
-        if (!currentUrl) {
-
-            return;
-        }
-
-
-        const frame =
-            document.getElementById("systemFrame");
-
-
-        document
-            .getElementById("loading")
-            .classList.add("active");
-
-
-        frame.src =
-            comVersao(currentUrl);
-
-    }
-
-
-    /* =====================================
-       ABRIR EM NOVA ABA
-    ====================================== */
-
-    function openNewTab() {
-
-
-        if (!currentUrl) {
-
-
-            alert(
-                "Selecione um sistema primeiro."
-            );
-
-
-            return;
+            closeMobileSidebar();
 
         }
 
 
-        window.open(
-            currentUrl,
-            "_blank"
-        );
+        /* =========================================================
+           RECOLHER / EXPANDIR SIDEBAR
+        ========================================================== */
 
-    }
-
-
-    /* =====================================
-       MENU MOBILE
-    ====================================== */
-
-    function toggleSidebar() {
-
-
-        document
-            .getElementById("sidebar")
-            .classList.toggle("open");
-
-    }
-
-
-    /* =====================================
-       FECHAR MENU MOBILE AO CLICAR FORA
-    ====================================== */
-
-    document.addEventListener(
-        "click",
-        function(event) {
-
+        function toggleSidebarCollapse() {
 
             const sidebar =
                 document.getElementById("sidebar");
 
+            const icon =
+                document.getElementById("collapseIcon");
 
-            const menuButton =
-                document.querySelector(
-                    ".mobile-menu-btn"
-                );
+
+            sidebar.classList.toggle("collapsed");
 
 
             if (
-                window.innerWidth <= 700 &&
-                sidebar.classList.contains("open") &&
-                !sidebar.contains(event.target) &&
-                !menuButton.contains(event.target)
+                sidebar.classList.contains("collapsed")
             ) {
 
+                icon.className =
+                    "bi bi-chevron-right";
 
-                sidebar.classList.remove("open");
+            } else {
+
+                icon.className =
+                    "bi bi-chevron-left";
 
             }
 
         }
-    );
 
 
-</script>
+        /* =========================================================
+           RECARREGAR SISTEMA
+        ========================================================== */
+
+        function reloadSystem() {
+
+            if (!currentUrl) {
+                return;
+            }
+
+
+            const frame =
+                document.getElementById("systemFrame");
+
+            const loading =
+                document.getElementById("loading");
+
+
+            loading.style.display = "flex";
+
+
+            frame.style.display = "none";
+
+
+            frame.onload = function () {
+
+                loading.style.display = "none";
+
+                frame.style.display = "block";
+
+            };
+
+
+            frame.src =
+                comVersao(currentUrl);
+
+        }
+
+
+        /* =========================================================
+           ABRIR EM NOVA ABA
+        ========================================================== */
+
+        function openNewTab() {
+
+            if (!currentUrl) {
+                return;
+            }
+
+
+            window.open(
+                currentUrl,
+                "_blank",
+                "noopener,noreferrer"
+            );
+
+        }
+
+
+        /* =========================================================
+           SIDEBAR MOBILE
+        ========================================================== */
+
+        function toggleSidebar() {
+
+            const sidebar =
+                document.getElementById("sidebar");
+
+            const overlay =
+                document.getElementById("sidebarOverlay");
+
+
+            sidebar.classList.toggle("mobile-open");
+
+            overlay.classList.toggle(
+                "active"
+            );
+
+        }
+
+
+        /* =========================================================
+           FECHAR SIDEBAR MOBILE
+        ========================================================== */
+
+        function closeMobileSidebar() {
+
+            const sidebar =
+                document.getElementById("sidebar");
+
+            const overlay =
+                document.getElementById("sidebarOverlay");
+
+
+            sidebar.classList.remove(
+                "mobile-open"
+            );
+
+            overlay.classList.remove(
+                "active"
+            );
+
+        }
+
+
+        /* =========================================================
+           FECHAR MENU AO CLICAR FORA
+        ========================================================== */
+
+        document.addEventListener(
+            "click",
+            function(event) {
+
+                if (
+                    window.innerWidth > 900
+                ) {
+                    return;
+                }
+
+
+                const sidebar =
+                    document.getElementById(
+                        "sidebar"
+                    );
+
+                const menuButton =
+                    document.querySelector(
+                        ".mobile-menu-button"
+                    );
+
+
+                if (
+                    sidebar.classList.contains(
+                        "mobile-open"
+                    ) &&
+                    !sidebar.contains(event.target) &&
+                    !menuButton.contains(event.target)
+                ) {
+
+                    closeMobileSidebar();
+
+                }
+
+            }
+        );
+
+
+    </script>
 
 
 </body>
